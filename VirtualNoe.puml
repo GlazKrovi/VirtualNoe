@@ -25,6 +25,24 @@ package Models
         + use()
     }
 
+    interface IFood implements IItem
+    {
+        /' number of points added to hunger gauge '/
+        + calories() : Integer  
+    }
+
+    interface IBoost implements IItem
+    {
+        /' number of points added to stamina gauge '/
+        + energy() : Integer
+    }
+
+    interface IDrug implements IItem
+    {
+        /' number of points added to life gauge '/
+        + healing() : Integer
+    }
+
     interface ICreature 
     { 
         + name() : String
@@ -36,8 +54,23 @@ package Models
 
 package Controllers 
 { 
-   
+    class InventoryController
+    {
+        + add(item : IItem, amount : Integer) 
+        + remove(item : IItem, amount : Integer)
+    }
 
+    class UserController
+    {
+        /' TODO - see laravel scaffolding system (make:auth), etc. '/
+    }
+
+    class CreatureController
+    {
+        + feed(food : IFood)
+        + boost(boost : IBoost)
+        + heal(drug : IDrug)
+    }
 }
 
 package Views 
