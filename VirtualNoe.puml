@@ -6,42 +6,48 @@ package Models
 {
     interface IUser
     {
-        + login()
-        + password()
-        + level()
-        + money()
-        + inventory()
+        + login() : String
+        + password() : String
+        + level() : Integer
+        + money() : Integer
+        + inventory() : IInventory
     }
 
     interface IInventory 
     { 
-        + add(item : IItem, amount : Integer)
-        + remove(item : IItem, amount : Integer)
-        + quantityOf(item : IItem)
-        + ofType(type : IItem)
+        + quantityOf(item : IItem) : Integer
+        + ofType(type : IItem) : IItem[*]
     }
 
     interface IItem
     {
-        + name()
+        + name() : String
         + use()
     }
 
     interface ICreature 
     { 
-        + name()
-        + life()
-        + hunger()
-        + stamina()
+        + name() : String
+        + life() : Integer
+        + hunger() : Integer
+        + stamina() : Integer
     }
 }
 
-package Controllers { }
-package Views { }
+package Controllers 
+{ 
+   
+
+}
+
+package Views 
+{ 
+    
+}
 
 /' RELATIONS '/
-IUser *--> IInventory : - inventory
-IInventory o--> IItem : - items
+IUser" 1 " *--> " 1 "IInventory : - inventory
+IInventory" 1 " o--> " * "IItem : - items
 ICreature ..> IItem : use               /' TODO - not sure '/
 
 
