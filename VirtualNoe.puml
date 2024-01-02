@@ -58,6 +58,7 @@ package Controllers
     {
         + add(item : IItem, amount : Integer) 
         + remove(item : IItem, amount : Integer)
+        + show()
     }
 
     class UserController
@@ -78,6 +79,9 @@ package Views
     class MainLayout
     class SigninForm extends MainLayout   /' home, index '/
     class Game extends MainLayout   /' main game window '/
+    {
+        + callShowInventory()
+    }
     class Documentation extends MainLayout   /' tutorial, etc. '/
 }
 
