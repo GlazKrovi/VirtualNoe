@@ -75,7 +75,10 @@ package Controllers
 
 package Views 
 { 
-    
+    class MainLayout
+    class SigninForm extends MainLayout   /' home, index '/
+    class Game extends MainLayout   /' main game window '/
+    class Documentation extends MainLayout   /' tutorial, etc. '/
 }
 
 /' RELATIONS '/
