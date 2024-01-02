@@ -1,0 +1,45 @@
+@startuml VirtualNoe
+
+!theme reddress-darkgreen
+
+package Models
+{
+    interface IUser
+    {
+        + login()
+        + password()
+        + level()
+        + money()
+        + inventory()
+    }
+
+    interface IInventory 
+    { 
+        + add(item : IItem, amount : Integer)
+        + remove(item : IItem, amount : Integer)
+        + quantityOf(item : IItem)
+        + ofType(type : IItem)
+    }
+
+    interface IItem
+    {
+        + name()
+        + use()
+    }
+
+    interface ICreature 
+    { 
+        + name()
+        + life()
+        + hunger()
+        + stamina()
+    }
+}
+
+/' RELATIONS '/
+IUser *--> IInventory : - inventory
+IInventory o--> IItem : - items
+ICreature ..> IItem : use               /' TODO - not sure '/
+
+
+@enduml
