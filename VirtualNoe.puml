@@ -36,10 +36,19 @@ package Models
     }
 }
 
+package Controllers { }
+package Views { }
+
 /' RELATIONS '/
 IUser *--> IInventory : - inventory
 IInventory o--> IItem : - items
 ICreature ..> IItem : use               /' TODO - not sure '/
 
+
+/' MVC '/
+Controllers ..> Models : modifies
+Controllers ..> Views : updates
+Views ..> Controllers : user interacts
+Models ..> Controllers : notifies 
 
 @enduml
