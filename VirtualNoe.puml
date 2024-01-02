@@ -63,7 +63,10 @@ package Controllers
 
     class UserController
     {
-        /' TODO - see laravel scaffolding system (make:auth), etc. '/
+        /' Authentication system managed by laravel'/
+        + levelUp(experience : Integer)
+        + earn(amount : Integer) /' money '/
+        + lose(amount : Integer) /' money '/
     }
 
     class CreatureController
