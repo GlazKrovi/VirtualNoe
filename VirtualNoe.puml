@@ -4,7 +4,7 @@
 
 package Models
 {
-    interface IUser
+    interface IPlayer
     {
         + login() : String
         + password() : String
@@ -87,7 +87,7 @@ package Views
 }
 
 /' RELATIONS '/
-IUser" 1 " o--> " * "IItem : have
+IPlayer" 1 " o--> " * "IItem : have
 ICreature ..> IItem : use               /' TODO - not sure '/
 
 

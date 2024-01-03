@@ -56,11 +56,7 @@ class User extends Authenticatable
         return Item::findOrFail($item->name())->first();
     }
 
-    /**
-     * Exemple de méthode renvoyant une collection d'objets Item.
-     *
-     * @return Illuminate\Database\Eloquent\Collection|\App\Models\Item[]
-     */
+   
     public function itemsOfType(IItem $type) : Collection // TODO
     {
         return Item::where('type', $type)->get()->toArray();
