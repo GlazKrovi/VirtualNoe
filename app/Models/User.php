@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -57,7 +54,7 @@ class User extends Authenticatable implements IPlayer
     }
 
    
-    public function itemsOfType(IItem $type) : Collection // TODO
+    public function itemsOfType(IItem $type) : array
     {
         return Item::where('type', $type)->get()->toArray();
     }
@@ -75,12 +72,10 @@ class User extends Authenticatable implements IPlayer
     public function level() : int
     {
         return $this->attributes['level'];
-
     }
 
     public function money() : int
     {
         return $this->attributes['money'];
-
     }
 }
