@@ -19,5 +19,4 @@ class Food extends Model implements IFood
     {
         return $this->attributes['calories'];
     }
-
 }
