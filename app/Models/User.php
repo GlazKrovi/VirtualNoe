@@ -33,12 +33,6 @@ class User extends Authenticatable implements IPlayer
     {
         return 50;
     }
-
-    protected function items()
-    {
-        return $this->hasMany(Item::class);
-    }
-
     
     public function quantityOf(IItem $item) : int   
     {

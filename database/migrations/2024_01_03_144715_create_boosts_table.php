@@ -12,9 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('boosts', function (Blueprint $table) {
-            $table->unsignedBigInteger('boost_id')->primary();
+            // common to all items
+            $table->id();
+            $table->string('name');
+            $table->string('type');
+            $table->integer('price');
+
+            // specific
             $table->integer('energy')->default(10);
-            $table->foreign('boost_id')->references('id')->on('items')->onDelete('cascade');
         });
     }
 
