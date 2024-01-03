@@ -35,7 +35,7 @@ class User extends Authenticatable implements IPlayer
     
     public function quantityOf(IItem $item) : int   
     {
-        return Item::findOrFail($item->name())->first();
+        return Inventory::quantity($this, $item);
     }
 
    
