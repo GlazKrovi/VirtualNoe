@@ -9,6 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements IPlayer
 {
+    // DB
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
@@ -26,6 +27,12 @@ class User extends Authenticatable implements IPlayer
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // OWNS
+    public static function default_money() : int 
+    {
+        return 50;
+    }
 
     protected function items()
     {
