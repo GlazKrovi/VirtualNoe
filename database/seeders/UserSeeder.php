@@ -13,5 +13,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
-    }
+
+        User::create([ 
+            'name' => 'Deny',
+            'email' => 'deny@gmail.com',
+            'password' => 'deny',
+        ]);
+    }        
 }

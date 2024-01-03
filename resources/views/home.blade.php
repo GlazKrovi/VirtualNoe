@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') 
 
 @section('content')
 <div class="container">
@@ -18,6 +18,13 @@
                 </div>
             </div>
         </div>
+
+        <div class="dev">
+            <a href="{{route('view_dev')}}"> devtest </a>
+        </div>
     </div>
 </div>
+
+
+
 @endsection
