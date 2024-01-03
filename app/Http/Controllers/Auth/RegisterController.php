@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Food;
+use App\Models\Boost;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -66,6 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // create new user
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -73,5 +76,12 @@ class RegisterController extends Controller
             'level' => 0,
             'money' => User::default_money(),
         ]);
+
+        // give him some basic items
+        $petFood = Food::where('name', 'Pet Food')->first();
+        $user->add($petFood, 3);
+
+        $vitamin = Boost::where('name', 'Vitamin')->first();
+        $user->add($vitamin, 1);
     }
 }
