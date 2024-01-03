@@ -27,18 +27,20 @@ class FoodSeeder extends Seeder
             'price' => 10,
             'calories' => 5,
         ]);
-
-        /* CARE */
-        Item::create([
-            'name' => 'Healing Potion',
-            'type' => 'Care',
-            'price' => 20,
-        ]);
-
-        Item::create([
-            'name' => 'Grooming Kit',
-            'type' => 'Care',
-            'price' => 15,
-        ]);        
     }
 }
+
+/*
+    // CARE 
+    Item::create([
+        'name' => 'Healing Potion',
+        'type' => 'Care',
+        'price' => 20,
+    ]);
+
+    Item::create([
+        'name' => 'Grooming Kit',
+        'type' => 'Care',
+        'price' => 15,
+    ]);        
+*/
