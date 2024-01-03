@@ -32,8 +32,6 @@ abstract class Item extends Model implements IItem
         return $this->attributes['price'];
     }
 
-    public abstract function use();
-
     protected function user()
     {
         return $this->belongsTo(User::class);

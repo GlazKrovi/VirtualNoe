@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-interface IFood 
+interface IFood extends IItem
 {
     public function calories() : int;
 }

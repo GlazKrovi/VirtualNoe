@@ -12,6 +12,7 @@ package Models
         + money() : Integer
         + quantityOf(item : IItem) : Integer
         + itemsOfType(type : IItem) : IItem[*]
+        + use(item : IItem)             /' TODO '/
         # items() : IItem[*]
     }
 
@@ -20,7 +21,6 @@ package Models
         + name() : String
         + type() : String
         + price() : Integer
-        + use()
     }
 
     interface IFood implements IItem
