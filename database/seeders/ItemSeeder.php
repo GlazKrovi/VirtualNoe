@@ -6,7 +6,7 @@ use App\Models\Item;
 use App\Models\Food;
 use Illuminate\Database\Seeder;
 
-class ItemSeeder extends Seeder
+class FoodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
