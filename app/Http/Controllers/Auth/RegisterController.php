@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'level' => 0,
-            'money' => $DEFAUL_MONEY,
+            'money' => User::default_money(),
         ]);
     }
 }
