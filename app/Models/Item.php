@@ -9,6 +9,8 @@ abstract class Item extends Model implements IItem
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'name',
         'type',
@@ -31,4 +33,9 @@ abstract class Item extends Model implements IItem
     }
 
     public abstract function use();
+
+    protected function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
