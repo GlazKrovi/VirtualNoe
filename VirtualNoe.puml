@@ -10,18 +10,16 @@ package Models
         + password() : String
         + level() : Integer
         + money() : Integer
-        + inventory() : IInventory
-    }
-
-    interface IInventory 
-    { 
         + quantityOf(item : IItem) : Integer
-        + ofType(type : IItem) : IItem[*]
+        + itemsOfType(type : IItem) : IItem[*]
+        # items() : IItem[*]
     }
 
     interface IItem
     {
         + name() : String
+        + type() : String
+        + price() : Integer
         + use()
     }
 
@@ -89,8 +87,7 @@ package Views
 }
 
 /' RELATIONS '/
-IUser" 1 " *--> " 1 "IInventory : - inventory
-IInventory" 1 " o--> " * "IItem : - items
+IUser" 1 " o--> " * "IItem : have
 ICreature ..> IItem : use               /' TODO - not sure '/
 
 

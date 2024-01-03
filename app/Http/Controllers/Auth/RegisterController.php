@@ -24,6 +24,8 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    protected $DEFAUL_MONEY = 50;
+
     /**
      * Where to redirect users after registration.
      *
@@ -64,10 +66,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'level' => 0,
+            'money' => $DEFAUL_MONEY,
         ]);
     }
 }

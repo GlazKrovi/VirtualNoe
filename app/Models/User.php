@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,4 +44,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    
+    public function quantityOf(IItem $item) : int   
+    {
+        return Item::findOrFail($item->name())->first();
+    }
+
+    /**
+     * Exemple de méthode renvoyant une collection d'objets Item.
+     *
+     * @return Illuminate\Database\Eloquent\Collection|\App\Models\Item[]
+     */
+    public function itemsOfType(IItem $type) : Collection // TODO
+    {
+        return Item::where('type', $type)->get()->toArray();
+    }
 }
