@@ -20,4 +20,9 @@ abstract class Item extends Model implements IItem
     {
         return $this->attributes['price'];
     }
+
+    protected function users()
+    {
+        return $this->belongsToMany(User::class, 'user_item')->withPivot('quantity');
+    }
 }

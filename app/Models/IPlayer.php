@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use \Illuminate\Database\Eloquent\Collection;
+
 interface IPlayer 
 {
     public function login() : string;
     public function password() : string;
     public function level() : int;
     public function money() : int;
-    public function quantityOf(IItem $item) : int;
-
-    /**
-     * @return Illuminate\Database\Eloquent\Collection|\App\Models\Item[]
-     */
-    public function itemsOfType(IItem $type) : array;
+    public function quantity(IItem $item) : int;
+    public function add(Item $item, int $quantity);
+    public function remove(Item $item, int $quantity);
+    public function items() : Collection;
 }
