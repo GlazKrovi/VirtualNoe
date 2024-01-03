@@ -1,10 +1,1 @@
-Pas de table "item"
-Une table pour chaque classe dérivée
-
-Item extends Model
-    -> pas de fillable, etc
-dérivées extends Item
-
-
-
-           
+Page web echo items of Deny (test user) (> User seeder)
