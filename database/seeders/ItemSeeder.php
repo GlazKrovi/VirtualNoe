@@ -28,19 +28,6 @@ class ItemSeeder extends Seeder
             'calories' => 5,
         ]);
 
-        /* BOOST */
-        Item::create([
-            'name' => 'Vitamin',
-            'type' => 'Boost',
-            'price' => 18,
-        ]);
-
-        Item::create([
-            'name' => 'Energy Elixir',
-            'type' => 'Boost',
-            'price' => 25,
-        ]);
-
         /* CARE */
         Item::create([
             'name' => 'Healing Potion',
