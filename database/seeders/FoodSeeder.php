@@ -13,7 +13,6 @@ class FoodSeeder extends Seeder
      */
     public function run(): void
     {
-        /* FOOD */
         Food::create([
             'name' => 'Pet Food',
             'type' => 'Food',
@@ -29,18 +28,3 @@ class FoodSeeder extends Seeder
         ]);
     }
 }
-
-/*
-    // CARE 
-    Item::create([
-        'name' => 'Healing Potion',
-        'type' => 'Care',
-        'price' => 20,
-    ]);
-
-    Item::create([
-        'name' => 'Grooming Kit',
-        'type' => 'Care',
-        'price' => 15,
-    ]);        
-*/
