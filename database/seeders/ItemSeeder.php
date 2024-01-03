@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Item;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Food;
 use Illuminate\Database\Seeder;
 
 class ItemSeeder extends Seeder
@@ -14,16 +14,18 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
         /* FOOD */
-        Item::create([
+        Food::create([
             'name' => 'Pet Food',
             'type' => 'Food',
             'price' => 5,
+            'calories' => 10,
         ]);
 
-        Item::create([
+        Food::create([
             'name' => 'Cookie',
             'type' => 'Food',
             'price' => 10,
+            'calories' => 5,
         ]);
 
         /* BOOST */
