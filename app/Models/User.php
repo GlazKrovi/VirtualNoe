@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements IPlayer
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -60,5 +60,27 @@ class User extends Authenticatable
     public function itemsOfType(IItem $type) : Collection // TODO
     {
         return Item::where('type', $type)->get()->toArray();
+    }
+
+    public function login() : string
+    {
+        return $this->attributes['login'];
+    }
+
+    public function password() : string
+    {
+        return $this->attributes['password'];
+    }
+
+    public function level() : int
+    {
+        return $this->attributes['level'];
+
+    }
+
+    public function money() : int
+    {
+        return $this->attributes['money'];
+
     }
 }
