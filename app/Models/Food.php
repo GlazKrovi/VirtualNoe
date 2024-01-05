@@ -17,4 +17,9 @@ class Food extends Item implements IFood
     {
         return $this->attributes['calories'];
     }
+
+    public function use() : void // TODO
+    {
+        return;
+    }
 }
