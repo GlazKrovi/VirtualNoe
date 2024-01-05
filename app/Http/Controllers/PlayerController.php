@@ -12,7 +12,7 @@ class PlayerController extends Controller
     /**
      * @return The player currently connected in session
      */
-    public function player() : IPlayer
+    public static function player() : IPlayer
     {
         $player = Auth::user();         // equivalent to session()->input('user') but when Auth is used!
         if($player == null) throw new Exception("No player currently connected");
@@ -22,7 +22,7 @@ class PlayerController extends Controller
 
     public function levelUp(Request $request) : void
     {
-        $player = $this->player();
+        $player = PlayerController::player();
         $amount = $request->input('experience');
         $actualQty = $player->level();
         
@@ -32,7 +32,7 @@ class PlayerController extends Controller
 
     public function earn(Request $request) : void
     {
-        $player = $this->player();
+        $player = PlayerController::player();
         $amount = $request->input('amount');
 
         // security
@@ -46,7 +46,7 @@ class PlayerController extends Controller
 
     public function lose(Request $request) : void
     {
-        $player = $this->player();
+        $player = PlayerController::player();
         $amount = $request->input('amount');
 
         // security
