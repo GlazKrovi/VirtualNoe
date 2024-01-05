@@ -7,9 +7,12 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PlayerController extends Controller   // TODO
+class PlayerController extends Controller   
 {
-    public function connectedPlayer() : IPlayer
+    /**
+     * @return The player currently connected in session
+     */
+    public function player() : IPlayer
     {
         $player = Auth::user();         // equivalent to session()->input('user') but when Auth is used!
         if($player == null) throw new Exception("No player currently connected");
@@ -19,7 +22,7 @@ class PlayerController extends Controller   // TODO
 
     public function levelUp(Request $request) : void
     {
-        $player = $this->connectedPlayer();
+        $player = $this->player();
         $amount = $request->input('experience');
         $actualQty = $player->level();
         
@@ -29,7 +32,7 @@ class PlayerController extends Controller   // TODO
 
     public function earn(Request $request) : void
     {
-        $player = $this->connectedPlayer();
+        $player = $this->player();
         $amount = $request->input('amount');
 
         // security
@@ -43,7 +46,7 @@ class PlayerController extends Controller   // TODO
 
     public function lose(Request $request) : void
     {
-        $player = $this->connectedPlayer();
+        $player = $this->player();
         $amount = $request->input('amount');
 
         // security
