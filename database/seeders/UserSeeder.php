@@ -15,9 +15,9 @@ class UserSeeder extends Seeder
         User::factory(10)->create();
 
         User::create([ 
-            'name' => 'Deny',
-            'email' => 'deny@gmail.com',
-            'password' => 'deny',
+            'name' => 'a',
+            'email' => 'a@gmail.com',
+            'password' => 'a',
         ]);
     }        
 }
