@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\InventoryController;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Food;
@@ -78,10 +79,12 @@ class RegisterController extends Controller
         ]);
 
         // give him some basic items
+        $inventory = new InventoryController();
         $petFood = Food::where('name', 'Pet Food')->first();
-        $user->add($petFood, 3);
-
+        $inventory->add($petFood, 3);    
         $vitamin = Boost::where('name', 'Vitamin')->first();
-        $user->add($vitamin, 1);
-    }
+        $inventory->add($vitamin, 1);    
+
+        return $user;
+    }   
 }
