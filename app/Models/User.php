@@ -86,6 +86,20 @@ class User extends Authenticatable implements IPlayer
         return $this->belongsToMany(Boost::class)->withPivot('quantity')->get();
     }
 
+    public function setLevel(int $level): void
+    {
+        $this->attributes['level'] = $level;
+        $this->save();
+    }
+
+    public function setMoney(int $money): void
+    {
+        $this->attributes['money'] = $money;
+        $this->save();
+    }
+
+
+    // to controller!!
     public function add(Item $item, int $quantity)
     {
         if ($quantity < 0) throw new InvalidArgumentException("Try to add negative value. Use remove instead");

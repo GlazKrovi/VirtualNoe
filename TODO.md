@@ -1,1 +1,3 @@
-Page web echo items of Deny (test user) (> User seeder)
+Page web echo items of a (test user) (> User seeder)
+
+ add empty PlayerController

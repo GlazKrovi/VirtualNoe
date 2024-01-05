@@ -11,9 +11,9 @@ package Models
         + level() : Integer
         + money() : Integer
         + quantityOf(item : IItem) : Integer
-        + itemsOfType(type : IItem) : IItem[*]
-        + use(item : IItem)             /' TODO '/
-        # items() : IItem[*]
+        + items() : IItem[*]
+        + setLevel(level : Integer)
+        + setMoney(money : Integer)
     }
 
     interface IItem
@@ -21,6 +21,7 @@ package Models
         + name() : String
         + type() : String
         + price() : Integer
+        + use()     /' the way the objet is consumed '/
     }
 
     interface IFood implements IItem
@@ -52,7 +53,7 @@ package Models
 
 package Controllers 
 { 
-    class InventoryController
+    class InventoryController   /' use IPlayer '/
     {
         + add(item : IItem, amount : Integer) 
         + remove(item : IItem, amount : Integer)
