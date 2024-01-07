@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\InventoryController;
 
 class User extends Authenticatable implements IPlayer
 {
@@ -30,12 +31,33 @@ class User extends Authenticatable implements IPlayer
         'password' => 'hashed',
     ];
 
-    // OWNS
-    public static function default_money() : int 
+    // COMMON
+    public static function createWithItems(array $data)
     {
-        return 50;
+        $user = User::create($data);
+
+        // Give the user some basic items
+        $inventoryController = new InventoryController($user);
+
+        $petFood = Food::where('name', 'Pet Food')->first();
+        if ($petFood) {
+            Log::debug('Pet Food retrieved successfully: ' . $petFood->name);
+            $inventoryController->add($petFood, 3);
+        } else {
+            Log::debug('Pet Food not found!');
+        }
+
+        $vitamin = Boost::where('name', 'Vitamin')->first();
+        if ($vitamin) {
+            $inventoryController->add($vitamin, 1);
+        } else {
+            Log::debug('Vitamin not found!');
+        }
+
+        return $user;
     }
-    
+
+    // OWNS    
     public function quantity(IItem $item) : int   
     {
         $qtyRow = $this->items()->where('item_id', $item->id)->first();
@@ -47,9 +69,9 @@ class User extends Authenticatable implements IPlayer
         return Item::where('type', $type)->get()->toArray();
     }
 
-    public function login() : string
+    public function name() : string
     {
-        return $this->attributes['login'];
+        return $this->attributes['name'];
     }
 
     public function password() : string
@@ -71,7 +93,7 @@ class User extends Authenticatable implements IPlayer
     {
         $allItems = new Collection();
         $allItems->concat($this->foods());
-        $allItems->concat($this->boost());
+        $allItems->concat($this->boosts());
         return $allItems;
     }
 

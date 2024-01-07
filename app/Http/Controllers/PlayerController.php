@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class PlayerController extends Controller   
 {
     /**
-     * @return The player currently connected in session
+     * @return IPlayer The player currently connected in session
      */
     public static function player() : IPlayer
     {

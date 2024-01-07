@@ -6,7 +6,7 @@ use \Illuminate\Database\Eloquent\Collection;
 
 interface IPlayer 
 {
-    public function login() : string;
+    public function name() : string;
     public function password() : string;
     public function level() : int;
     public function money() : int;

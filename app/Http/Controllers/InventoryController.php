@@ -4,77 +4,67 @@ namespace App\Http\Controllers;
 
 use InvalidArgumentException;
 use Exception;
-use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\Food;
-use App\Models\Boost;
+use App\Models\IPlayer;
 
 class InventoryController extends Controller
 {
-    public function add(Request $request)
-    {
-        $item = $request->input('item');
-        $quantity = $request->input('quantity');
-        $player = PlayerController::player();
+    protected IPlayer $player;
 
-        if ($quantity < 0) throw new InvalidArgumentException("Try to add negative value. Use remove instead");
-        
-        // wich type?
-        if ($item instanceof Food)
+    public function __construct(IPlayer $player = null) {
+        // try to get currently connected player if unspecified
+        if ($player == null)
         {
-            $collection = $this->foods();
-        }        
-        else if ($item instanceof Boost)
-        {
-            $collection = $this->boosts();
+            $player = PlayerController::player();
         }
-        else
-        {
-            throw new InvalidArgumentException("Invalid item type");
-        }
-
-        // get actual qty
-        $actQty = $collection->where('item_id', $item->id)
-            ->where('user_id', $player->id)
-            ->value('quantity') ?? 0;
-        $newQuantity = $actQty + $quantity;
-
-        // update db
-        $collection->syncWithoutDetaching([$item->id => ['quantity' => $newQuantity]]);
+        $this->player = $player;
     }
 
-    public function remove(Request $request)
+    public function show()
     {
-        $item = $request->input('item');
-        $quantity = $request->input('quantity');
-        $player = PlayerController::player();
+        $userItems = $this->player->items();
 
-        if ($quantity < 0) throw new InvalidArgumentException("Try to add negative value. Use remove instead");
+        // open view
+        return view('inventory')->with('player', $this->player)->with('userItems', $userItems);
+    }
+
+    public function add(Item $item, int $quantity)
+    {
+        $this->modifyInventory($this->player, $item, $quantity, true);
+    }
+
+    public function remove(Item $item, int $quantity)
+    {
+        $this->modifyInventory($this->player, $item, $quantity, false);
+    }
+
+    private function modifyInventory(IPlayer $player, Item $item, int $quantity, bool $add)
+    {
+        if ($quantity < 0) {
+            throw new InvalidArgumentException("Try to add a negative value. Use 'remove' instead.");
+        }
         
-        // wich type?
-        if ($item instanceof Food)
+        // Get the pivot model instance
+        $pivot = $item->users()->where('user_id', $player->id)->first();
+    
+        // Calculate new quantity based on add/remove action
+        if ($pivot) 
         {
-            $collection = $this->foods();
-        }        
-        else if ($item instanceof Boost)
-        {
-            $collection = $this->boosts();
+            $newQuantity = $add ? ($pivot->quantity + $quantity) : ($pivot->quantity - $quantity);
+        }   
+        // no entry yet? 
+        else $newQuantity = $quantity;
+    
+        // Check if enough quantity is available for removal
+        if (!$add && $newQuantity < 0) {
+            throw new Exception("Not enough quantity of specified item.");
         }
-        else
-        {
-            throw new InvalidArgumentException("Invalid item type");
+    
+        // Update or create the pivot record
+        if ($pivot) {
+            $pivot->update(['quantity' => $newQuantity]);
+        } else {
+            $item->users()->attach($player->id, ['quantity' => $newQuantity]);
         }
-
-        // get actual qty
-        $actQty = $collection->where('item_id', $item->id)
-            ->where('user_id', $player->id)
-            ->value('quantity') ?? 0;
-        $newQuantity = $actQty - $quantity;
-
-        // have enough?
-        if ($newQuantity < 0) throw new Exception("Not enough quantity of specified item.");     
-
-        // update db
-        $collection->syncWithoutDetaching([$item->id => ['quantity' => $newQuantity]]);
     }
 }

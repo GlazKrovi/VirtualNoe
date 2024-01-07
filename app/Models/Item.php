@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 abstract class Item extends Model implements IItem
 {   
@@ -23,8 +24,8 @@ abstract class Item extends Model implements IItem
 
     public abstract function use() : void;
 
-    protected function users()
+    public function users() : BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_item')->withPivot('quantity');
+        return $this->belongsToMany(User::class)->withPivot('quantity');   
     }
 }

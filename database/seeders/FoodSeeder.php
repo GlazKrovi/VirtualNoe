@@ -13,16 +13,18 @@ class FoodSeeder extends Seeder
      */
     public function run(): void
     {
+        $TYPE = 'Food';
+
         Food::create([
             'name' => 'Pet Food',
-            'type' => 'Food',
+            'type' => $TYPE,
             'price' => 5,
             'calories' => 10,
         ]);
 
         Food::create([
             'name' => 'Cookie',
-            'type' => 'Food',
+            'type' => $TYPE,
             'price' => 10,
             'calories' => 5,
         ]);

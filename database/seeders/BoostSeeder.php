@@ -13,16 +13,18 @@ class BoostSeeder extends Seeder
      */
     public function run(): void
     {
+        $TYPE = 'Boost';
+
         Boost::create([
             'name' => 'Vitamin',
-            'type' => 'Boost',
+            'type' => $TYPE,
             'price' => 18,
             'energy' => 8,
         ]);
 
         Boost::create([
             'name' => 'Energy Elixir',
-            'type' => 'Boost',
+            'type' => $TYPE,
             'price' => 25,
             'energy' => 15,
         ]);
