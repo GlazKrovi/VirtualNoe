@@ -22,6 +22,7 @@ package Models
         + type() : String
         + price() : Integer
         + use()     /' the way the objet is consumed '/
+        + users() /' get owners '/
     }
 
     interface IFood implements IItem
