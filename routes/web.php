@@ -40,7 +40,7 @@ Route::prefix("user")->group(function () {
 
     /* His stuff */
     Route::prefix("inventory")->group(function () {
-        Route::get('/show', [InventoryController::class, 'show'])->name('view_inventory');  
+        Route::get('/show', [InventoryController::class, 'show'])->name('inventory_show');  
     }); 
 
     /* His account */

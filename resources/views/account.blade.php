@@ -10,8 +10,7 @@
 		Welcome on your account.
 	</p>
 	<ul>
-		<li><a href="{{ route('memo_show') }}">View my memos.</a></li>
-		<li><a href="{{ route('view_formmemo') }}">Create a new memo.</a></li>
+		<li><a href="{{ route('inventory_show') }}">View my memos.</a></li>
 		<br>
 		<li><a href="{{ route('view_formpassword') }}">Change password.</a></li>
 		<li><a href="{{ route('user_deleteuser') }}">Delete my account.</a></li>
