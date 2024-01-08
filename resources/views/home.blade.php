@@ -10,4 +10,5 @@
     </div>
 
     <a href="{{ route('view_dev') }}"> tests </a>
+    <a href="{{ route('logs_show') }}"> logs </a>
 @endsection

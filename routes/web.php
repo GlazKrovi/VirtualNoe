@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,7 @@ Route::view('/', 'home')->name('view_home');
  */
 Route::prefix("admin")->group(function () {
     Route::view('/dev', 'dev')->name('view_dev');   
+    Route::get('/logs', [LogController::class, 'show'])->name('logs_show');   
 });
 
 /**
