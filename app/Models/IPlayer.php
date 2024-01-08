@@ -11,7 +11,7 @@ interface IPlayer
     public function level() : int;
     public function money() : int;
     public function quantity(IItem $item) : int;
-    public function items() : Collection;
+    public function items();
     public function setLevel(int $level): void;
     public function setMoney(int $money): void;
 }

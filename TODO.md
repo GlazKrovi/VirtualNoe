@@ -1,3 +1,1 @@
-Page web echo items of a (test user) (> User seeder)
-
-use() functions in different items!
+use() functions in different items! (it is SOLID and coherent ?)

@@ -89,19 +89,26 @@ class User extends Model implements IPlayer
         return $this->attributes['money'];
     }
 
-    public function items() : Collection
+    public function items() 
     {
-        $foods = $this->foods();
-        $boosts = $this->boosts();
-        return $foods->merge($boosts);
+        $all = new Collection();
+        foreach ($this->boosts() as $boost)
+        {
+            $all->add($boost);
+        }
+        foreach ($this->foods() as $food)
+        {
+            $all->add($food);
+        }
+        return $all;
     }
 
-    protected function foods() : Collection
+    protected function foods() 
     {
         return $this->belongsToMany(Food::class)->withPivot('quantity')->get();
     }
 
-    protected function boosts() : Collection
+    protected function boosts() 
     {
         return $this->belongsToMany(Boost::class)->withPivot('quantity')->get();
     }
