@@ -6,36 +6,25 @@ use InvalidArgumentException;
 use Exception;
 use App\Models\Item;
 use App\Models\IPlayer;
+use Illuminate\Support\Facades\Session;
 
 class InventoryController extends Controller
 {
-    protected IPlayer $player;
-
-    public function __construct(IPlayer $player = null) {
-        // try to get currently connected player if unspecified
-        if ($player == null)
-        {
-            $player = PlayerController::player();
-        }
-        $this->player = $player;
-    }
-
     public function show()
     {
-        $userItems = $this->player->items();
-
+        $player = session('user');
         // open view
-        return view('inventory')->with('player', $this->player)->with('userItems', $userItems);
+        return view('inventory')->with('player', $player)->with('userItems', $player->items());
     }
 
-    public function add(Item $item, int $quantity)
+    public function add(IPlayer $player, Item $item, int $quantity)
     {
-        $this->modifyInventory($this->player, $item, $quantity, true);
+        $this->modifyInventory($player, $item, $quantity, true);
     }
 
-    public function remove(Item $item, int $quantity)
+    public function remove(IPlayer $player, Item $item, int $quantity)
     {
-        $this->modifyInventory($this->player, $item, $quantity, false);
+        $this->modifyInventory($player, $item, $quantity, false);
     }
 
     private function modifyInventory(IPlayer $player, Item $item, int $quantity, bool $add)

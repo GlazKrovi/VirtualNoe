@@ -6,7 +6,7 @@
 @section('content')
 
     <div class="home"> 
-        <h1>Welcome {{ session('user') ? session('user')->login() : '' }}!</h1>
+        <h1>Welcome {{ session('user') ? session('user')->name() : '' }}!</h1>
     </div>
 
     <a href="{{ route('view_dev') }}"> tests </a>

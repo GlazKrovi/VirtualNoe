@@ -24,10 +24,9 @@ Route::view('/', 'home')->name('view_home');
 /**
  * Admin Zone
  */
-Route::prefix("admin")->group(function () {
-    Route::view('/dev', 'dev')->name('view_dev');   
-    Route::get('/logs', [LogController::class, 'show'])->name('logs_show');   
-});
+Route::view('/dev', 'dev')->name('view_dev');   
+Route::get('/logs', [LogController::class, 'show'])->name('logs_show');   
+Route::get('/destroy', function () { session()->flush(); return redirect()->route('view_home'); })->name('session_destroy');
 
 /**
  * User Zone
@@ -40,7 +39,7 @@ Route::prefix("user")->group(function () {
     Route::post('/adduser', [UserController::class, 'create'])->name('user_adduser');
 
     /* His stuff */
-    Route::prefix("inventory")->group(function () {
+    Route::prefix("inventory")->middleware('auth.myuser')->group(function () {
         Route::get('/show', [InventoryController::class, 'show'])->name('inventory_show');  
     }); 
 

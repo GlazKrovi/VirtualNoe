@@ -18,7 +18,8 @@ class VerifyMyUserIsAuthenticated
 		if ( $request->session()->missing('user') )
 			return to_route('view_signin')->with('message', 'Please log in first.');
 
-		$request->user = $request->session()->get('user');
-        return $next($request);
+            $user = $request->session('user');
+            $request->user = $user;
+            return $next($request);
     }
 }

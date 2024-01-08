@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
+use App\Models\IPlayer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Exception;
 
 class UserController extends Controller
 {
@@ -21,7 +23,9 @@ class UserController extends Controller
             return to_route('view_signin')->with('message', "Wrong email/password.");
         }
         
-        $request->session()->put('user', $user); 
+        if (!$user instanceof User) throw new Exception("Try to store 'user' but is other than a User.");
+        if (!$user instanceof IPlayer) throw new Exception("not a player.");
+        session()->put('user', $user); 
         return to_route('view_account')->with('message',"You are succesfully connected!");
     }
 
@@ -56,7 +60,7 @@ class UserController extends Controller
             return to_route('view_formpassword')->with('message',"Error: passwords are different.");
         }
 
-        $user = $request->session()->get('user');
+        $user = $request->session('user');
         try {
             $user->password = Hash::make($newPassword);  // encrypt new password
             $user->save();
@@ -74,7 +78,7 @@ class UserController extends Controller
             return to_route('view_signin');
         }
 
-        $user = $request->session()->get('user');
+        $user = $request->session('user');
         try {
             $user->delete();
             $this->disconnect();

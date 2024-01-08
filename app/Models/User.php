@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use \Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\InventoryController;
+use Exception;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model implements IPlayer
@@ -40,14 +42,14 @@ class User extends Model implements IPlayer
         $petFood = Food::where('name', 'Pet Food')->first();
         if ($petFood) {
             Log::debug('Pet Food retrieved successfully: ' . $petFood->name);
-            $inventoryController->add($petFood, 3);
+            $inventoryController->add($user, $petFood, 3);
         } else {
             Log::debug('Pet Food not found!');
         }
 
         $vitamin = Boost::where('name', 'Vitamin')->first();
         if ($vitamin) {
-            $inventoryController->add($vitamin, 1);
+            $inventoryController->add($user, $vitamin, 1);
         } else {
             Log::debug('Vitamin not found!');
         }
@@ -89,10 +91,9 @@ class User extends Model implements IPlayer
 
     public function items() : Collection
     {
-        $allItems = new Collection();
-        $allItems->concat($this->foods());
-        $allItems->concat($this->boosts());
-        return $allItems;
+        $foods = $this->foods();
+        $boosts = $this->boosts();
+        return $foods->merge($boosts);
     }
 
     protected function foods() : Collection

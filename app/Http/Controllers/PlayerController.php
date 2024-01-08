@@ -9,20 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class PlayerController extends Controller   
 {
-    /**
-     * @return IPlayer The player currently connected in session
-     */
-    public static function player() : IPlayer
-    {
-        $player = session()->input('user');
-        if($player == null) throw new Exception("No player currently connected");
-        else if ($player instanceof IPlayer) return $player; 
-        else throw new Exception("The user doesn't implements IPlayer");
-    }
-
     public function levelUp(Request $request) : void
     {
-        $player = PlayerController::player();
+        $player = session('user');
         $amount = $request->input('experience');
         $actualQty = $player->level();
         
@@ -32,7 +21,7 @@ class PlayerController extends Controller
 
     public function earn(Request $request) : void
     {
-        $player = PlayerController::player();
+        $player = session('user');
         $amount = $request->input('amount');
 
         // security
@@ -46,7 +35,7 @@ class PlayerController extends Controller
 
     public function lose(Request $request) : void
     {
-        $player = PlayerController::player();
+        $player = session('user');
         $amount = $request->input('amount');
 
         // security
