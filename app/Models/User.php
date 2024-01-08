@@ -3,17 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use \Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\InventoryController;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable implements IPlayer
+class User extends Model implements IPlayer
 {
     // DB
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         'name',

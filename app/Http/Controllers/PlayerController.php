@@ -14,7 +14,7 @@ class PlayerController extends Controller
      */
     public static function player() : IPlayer
     {
-        $player = Auth::user();         // equivalent to session()->input('user') but when Auth is used!
+        $player = session()->input('user');
         if($player == null) throw new Exception("No player currently connected");
         else if ($player instanceof IPlayer) return $player; 
         else throw new Exception("The user doesn't implements IPlayer");

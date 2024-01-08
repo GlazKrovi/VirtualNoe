@@ -1,4 +1,17 @@
-<!-- When there is no desire, all things are at peace. - Laozi -->
+<?php session_start(); ?>
+
 <div>
-   <a href="{{ route('view_inventory') }}"> See my inventory </a>
+    <!-- Bloc d'affichage des messages -->
+	@if (session('message'))
+		<section>
+			<p>{{ session('message') }}</p>
+		</section>
+	@else
+		<section>
+			<p>-No error message-</p>
+		</section>
+	@endif
+	<a href={{ to_route('view_home') }}> Destroy session! </a> 
+	<br>
+    <a href="/"> Exit </a>
 </div>
