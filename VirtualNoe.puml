@@ -14,6 +14,7 @@ package Models
         + items() : IItem[*]
         + setLevel(level : Integer)
         + setMoney(money : Integer)
+        + creature() : ICreature
     }
 
     interface IItem
@@ -21,7 +22,6 @@ package Models
         + name() : String
         + type() : String
         + price() : Integer
-        + use()     /' the way the objet is consumed '/
         + users() /' get owners '/
     }
 
@@ -45,10 +45,12 @@ package Models
 
     interface ICreature 
     { 
+        + id() : Integer
         + name() : String
         + life() : Integer
         + hunger() : Integer
         + stamina() : Integer
+        + owner() : User
     }
 }
 
@@ -71,6 +73,13 @@ package Controllers
 
     class CreatureController
     {
+        + index() : ICreature[*]
+        + create()
+        + store(Request $request)
+        + show(Creature $creature)
+        + edit(Creature $creature)
+        + update(Request $request, Creature $creature)
+        + destroy(Creature $creature)
         + feed(food : IFood)
         + boost(boost : IBoost)
         + heal(drug : IDrug)
@@ -88,10 +97,12 @@ package Views
     class Documentation extends MainLayout   /' tutorial, etc. '/
 }
 
-/' RELATIONS '/
-IPlayer" 1 " o--> " * "IItem : have
-ICreature ..> IItem : use               /' TODO - not sure '/
+/' AGREGATIONS / COMPOSITIONS '/
+IPlayer" 1 " o--> " * "IItem : has
+IPlayer" 1 " o--> " 1 "ICreature : has
 
+/' USING '/
+CreatureController ..> IItem : use             
 
 /' MVC '/
 Controllers ..> Models : modifies

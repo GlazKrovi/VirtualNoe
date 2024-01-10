@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreatureController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LogController;
@@ -43,6 +44,14 @@ Route::prefix("user")->group(function () {
         Route::get('/show', [InventoryController::class, 'show'])->name('inventory_show');  
     }); 
 
+    /* His creature */
+    Route::prefix("creature")->middleware('auth.myuser')->group(function () {
+        Route::view('/', 'creature')->name('view_creature');  
+        Route::view('/create', 'formcreature')->name('view_creature_create');  
+        Route::post('/show', [CreatureController::class, 'show'])->name('creature_show');  
+        Route::post('/store', [CreatureController::class, 'store'])->name('creature_store');  
+    }); 
+    
     /* His account */
     Route::prefix('admin')->middleware('auth.myuser')->group(function () { // alway verify if user is connected 
         Route::view('/account', 'account')->name('view_account');

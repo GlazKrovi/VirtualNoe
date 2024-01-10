@@ -9,6 +9,7 @@ use App\Http\Controllers\InventoryController;
 use Exception;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Model implements IPlayer
 {
@@ -123,5 +124,10 @@ class User extends Model implements IPlayer
     {
         $this->attributes['money'] = $money;
         $this->save();
+    }
+
+    public function creature() : HasMany 
+    {
+        return $this->hasMany(Creature::class);
     }
 }

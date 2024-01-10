@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use \Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 interface IPlayer 
 {
@@ -12,6 +12,8 @@ interface IPlayer
     public function money() : int;
     public function quantity(IItem $item) : int;
     public function items();
+    public function creature() : HasMany;
+
     public function setLevel(int $level): void;
     public function setMoney(int $money): void;
 }
