@@ -19,9 +19,9 @@ class Creature extends Model implements ICreature
         'hunger',
         'stamina',
     ];
-
+    
+    public const MAX_LEVEL = 1000;
     public const MAX_LIFE = 100;
-    public const MAX_LEVEL = 200;
     public const MAX_STAMINA = 100;
     public const MAX_HUNGER = 100;
 

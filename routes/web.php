@@ -50,6 +50,10 @@ Route::prefix("user")->group(function () {
         Route::view('/create', 'formcreature')->name('view_creature_create');  
         Route::post('/show', [CreatureController::class, 'show'])->name('creature_show');  
         Route::post('/store', [CreatureController::class, 'store'])->name('creature_store');  
+        Route::get('/feed', [CreatureController::class, 'feed'])->name('creature_feed');  
+        Route::get('/boost', [CreatureController::class, 'boost'])->name('creature_boost');  
+        Route::get('/heal', [CreatureController::class, 'heal'])->name('creature_heal');  
+        Route::get('/levelUp', [CreatureController::class, 'levelUp'])->name('creature_level_up');  
     }); 
     
     /* His account */
