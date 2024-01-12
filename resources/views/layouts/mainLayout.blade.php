@@ -9,6 +9,7 @@
 		<nav>
 			<ul>
 				<li><a href="{{ route('view_home') }}">Home</a></li>
+				<li><a href="{{ route('game_main') }}">Game</a></li>
 				<li><a href="{{ route('view_account') }}">Account</a></li>
 			</ul>
 		</nav>

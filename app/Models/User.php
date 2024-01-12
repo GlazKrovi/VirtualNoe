@@ -70,6 +70,11 @@ class User extends Model implements IPlayer
         return Item::where('type', $type)->get()->toArray();
     }
 
+    public function id() : int
+    {
+        return $this->attributes['id'];
+    }
+
     public function name() : string
     {
         return $this->attributes['name'];

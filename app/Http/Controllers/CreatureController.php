@@ -46,7 +46,7 @@ class CreatureController extends Controller
      */
     public function show(Creature $creature)
     {
-        return redirect()->route('view_creature', ['creature', $creature]);
+        return redirect()->route('game_main', ['creature', $creature]);
     }
 
     /**

@@ -7,5 +7,11 @@
     <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
 
     @include('shared.creature')
+
+    <a href="{{ route('inventory_show') }}">Inventory</a>
+
 </div>
 @endsection
+
+
+    

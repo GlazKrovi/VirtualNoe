@@ -10,8 +10,6 @@
 		Welcome to your account.
 	</p>
 	<ul>
-		<li><a href="{{ route('inventory_show') }}">Inventory</a></li>
-		<br>
 		<li><a href="{{ route('view_formpassword') }}">Change password</a></li>
 		<li><a href="{{ route('user_deleteuser') }}">Delete my account</a></li>
 	</ul>

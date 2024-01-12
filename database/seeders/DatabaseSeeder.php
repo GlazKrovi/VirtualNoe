@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\Boost;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +17,7 @@ class DatabaseSeeder extends Seeder
             FoodSeeder::class,
             BoostSeeder::class,
             UserSeeder::class,
-
+            CreatureSeeder::class,
         ]);
     }
 }

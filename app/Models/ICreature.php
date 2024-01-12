@@ -13,4 +13,10 @@ interface ICreature
     public function hunger() : int;
     public function stamina() : int;
     public function owner() : BelongsTo;
+
+    /**
+     *
+     * @return string Texture path
+     */
+    public function texture() : string;
 }

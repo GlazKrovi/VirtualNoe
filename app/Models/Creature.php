@@ -10,8 +10,6 @@ class Creature extends Model implements ICreature
 {
     use HasFactory;
 
-    protected $timestamp = false;
-
     protected $fillable = [
         'name',
         'life',
@@ -27,32 +25,32 @@ class Creature extends Model implements ICreature
 
     public function id() : string
     {
-        return $this->id;
+        return $this->attributes['id'];
     }
 
     public function name() : string
     {
-        return $this->name;
+        return $this->attributes['name']; 
     }
 
     public function life() : int
     {
-        return $this->life;
+        return $this->attributes['life']; 
     }
 
     public function level() : int
     {
-        return $this->level;
+        return $this->attributes['level']; 
     }
 
     public function hunger() : int
     {
-        return $this->hunger;
+        return $this->attributes['hunger']; 
     }
 
     public function stamina() : int
     {
-        return $this->stamina;
+        return $this->attributes['stamina']; 
     }
 
     /**
