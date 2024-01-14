@@ -14,7 +14,7 @@ interface ICreature
     function stamina() : int;
     function species() : string;
 
-    function owner() : BelongsTo;
+    function user() : BelongsTo;
 
     /**
      *

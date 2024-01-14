@@ -22,9 +22,5 @@
 		$player = session('user');
 
 	?>
-	<p> user is stored: <?php echo session()->has('user') ? 'Yes' : 'No'; ?> </p> <!-- test -->
-	<p> user is connected: <?php echo $player ? 'Yes' : 'No'; ?> </p> <!-- test -->
-	<p> user is a user: <?php echo $player instanceof User ? 'Yes' : 'No'; ?> </p>  <!-- test -->
-	<p> user is a player: <?php echo $player instanceof IPlayer ? 'Yes' : 'No'; ?> </p>  <!-- test -->
 
 @endsection

@@ -131,7 +131,7 @@ class User extends Model implements IPlayer
         $this->save();
     }
 
-    public function creatures() : HasMany 
+    public function creatures() : HasMany
     {
         return $this->hasMany(Creature::class);
     }

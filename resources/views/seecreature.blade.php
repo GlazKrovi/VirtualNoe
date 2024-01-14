@@ -12,8 +12,8 @@
                 <h2> {{ $creature->name() }} </h2>
                 <p> Level: {{ $creature->level() }} </p>
                 <p> Life: {{ $creature->life() }} </p>
-                <p> Life: {{ $creature->hunger() }} </p>
-                <p> Life: {{ $creature->stamina() }} </p>
+                <p> Hunger: {{ $creature->hunger() }} </p>
+                <p> Stamina: {{ $creature->stamina() }} </p>
             </div>  
         @endisset
     

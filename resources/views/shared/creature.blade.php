@@ -1,7 +1,7 @@
 <div class="creature-texture">
     <!-- Do what you can, with what you have, where you are. - Theodore Roosevelt -->
     @isset($creature)
-        <img src="{{ $creature->texture() }}" alt="Your creature">
+        <img class="creature-texture" src="{{ $creature->texture() }}" alt="Your creature"> 
         <p>{{ $creature->texture() }}</p>
     @endisset
 

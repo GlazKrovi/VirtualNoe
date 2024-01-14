@@ -59,10 +59,10 @@ class Creature extends Model implements ICreature
      */
     public function texture() : string
     {
-        return 'images/creature_textures/' . $this->species();
+        return asset('textures/' . strtolower($this->species() . '.png'));
     }
 
-    public function owner(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

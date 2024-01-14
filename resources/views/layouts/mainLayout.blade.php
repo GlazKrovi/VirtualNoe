@@ -9,8 +9,11 @@
 		<nav>
 			<ul>
 				<li><a href="{{ route('view_home') }}">Home</a></li>
-				<li><a href="{{ route( 'creature_show', ['creature' => session('user')->creatures()->first()] ) }}">Game</a></li>
 				<li><a href="{{ route('view_account') }}">Account</a></li>
+				
+				@if (session()->has('user') && session('user')->creatures()->first() != null)
+				<li><a href="{{ route( 'creature_show', ['creature' => session('user')->creatures()->first()] ) }}">Game</a></li>
+				@endif
 			</ul>
 		</nav>
 		

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('stamina')->default(50);
             $table->timestamps();
 
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained();
         });
     }
 

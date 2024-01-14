@@ -18,6 +18,7 @@ class CreatureSeeder extends Seeder
         // create fake creature
         Creature::create([
             'name' => "Bozlov",
+            'species' => "Dog",
             'user_id' => $owner->id(),
         ]);
     }  
