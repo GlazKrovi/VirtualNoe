@@ -4,8 +4,6 @@ namespace App\Models;
 
 class Food extends Item implements IFood
 {
-    public $timestamps = false;
-
     protected $fillable = [
         'name',
         'type',

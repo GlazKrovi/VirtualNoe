@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 abstract class Item extends Model implements IItem
 {   
+    public $timestamps = false;
+
     public function name() : string
     {
         return $this->attributes['name'];

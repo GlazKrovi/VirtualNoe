@@ -8,8 +8,6 @@ class Boost extends Item implements IBoost
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'name',
         'type',
