@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 interface ICreature 
 {
-    public function name() : string;
-    public function life() : int;
-    public function level() : int;
-    public function hunger() : int;
-    public function stamina() : int;
-    public function owner() : BelongsTo;
+    function id() : int;
+    function name() : string;
+    function life() : int;
+    function level() : int;
+    function hunger() : int;
+    function stamina() : int;
+    function species() : string;
+
+    function owner() : BelongsTo;
 
     /**
      *
      * @return string Texture path
      */
-    public function texture() : string;
+    function texture() : string;
 }

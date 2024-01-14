@@ -16,6 +16,7 @@ class Creature extends Model implements ICreature
         'level',
         'hunger',
         'stamina',
+        'species',
     ];
     
     public const MAX_LEVEL = 1000;
@@ -58,12 +59,17 @@ class Creature extends Model implements ICreature
      */
     public function texture() : string
     {
-        return 'images/creature_textures/' . $this->name();
+        return 'images/creature_textures/' . $this->species();
     }
 
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function species() : string
+    {
+        return $this->attributes['species'];
     }
 
 }

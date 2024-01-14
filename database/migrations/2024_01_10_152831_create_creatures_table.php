@@ -14,10 +14,12 @@ return new class extends Migration
     {
         Schema::create('creatures', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default("");
+            $table->string('name')->default("anonymous");
+            $table->string('species')->default("unknow");
             $table->integer('life')->default(100);
             $table->integer('level')->default(0);
             $table->integer('hunger')->default(50);
+            $table->integer('stamina')->default(50);
             $table->timestamps();
 
             $table->foreignIdFor(User::class);

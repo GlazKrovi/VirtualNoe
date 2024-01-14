@@ -4,7 +4,18 @@
 
 @section('content')
     <div>
+        <h1> Your creature{{ $creature ? " (" . $creature->id() . ")" : "" }}:</h1>
         <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
+
+        @isset($creature)
+            <div class="creature-info">
+                <h2> {{ $creature->name() }} </h2>
+                <p> Level: {{ $creature->level() }} </p>
+                <p> Life: {{ $creature->life() }} </p>
+                <p> Life: {{ $creature->hunger() }} </p>
+                <p> Life: {{ $creature->stamina() }} </p>
+            </div>  
+        @endisset
     
         @includeIf('shared.creature', ['creature' => $creature])
     
