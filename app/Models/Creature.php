@@ -23,9 +23,9 @@ class Creature extends Model implements ICreature
     public const MAX_STAMINA = 100;
     public const MAX_HUNGER = 100;
 
-    public function id() : string
+    public function id() : int
     {
-        return $this->attributes['id'];
+        return $this->id;
     }
 
     public function name() : string

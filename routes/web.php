@@ -39,11 +39,6 @@ Route::prefix("user")->group(function () {
     Route::post('/authenticate', [UserController::class, 'connect'])->name('user_authenticate');
     Route::post('/adduser', [UserController::class, 'create'])->name('user_adduser');
 
-    /* Main scene */
-    Route::prefix("game")->middleware('auth.myuser')->group(function () {
-        Route::any('/main', [CreatureController::class, 'show'])->name('game_main');  
-    }); 
-
     /* His stuff */
     Route::prefix("inventory")->middleware('auth.myuser')->group(function () {
         Route::get('/show', [InventoryController::class, 'show'])->name('inventory_show');  
@@ -58,6 +53,7 @@ Route::prefix("user")->group(function () {
         Route::get('/boost', [CreatureController::class, 'boost'])->name('creature_boost');  
         Route::get('/heal', [CreatureController::class, 'heal'])->name('creature_heal');  
         Route::get('/levelUp', [CreatureController::class, 'levelUp'])->name('creature_level_up');  
+        Route::get('/show/{creature}', [CreatureController::class, 'show'])->name('creature_show');  
     }); 
     
     /* His account */

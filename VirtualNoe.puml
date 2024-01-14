@@ -14,7 +14,7 @@ package Models
         + items() : IItem[*]
         + setLevel(level : Integer)
         + setMoney(money : Integer)
-        + creature() : ICreature
+        + creatures() : ICreature
     }
 
     interface IItem

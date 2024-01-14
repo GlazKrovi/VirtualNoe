@@ -7,9 +7,9 @@ use App\Models\IBoost;
 use App\Models\ICreature;
 use App\Models\IFood;
 use Carbon\Exceptions\InvalidCastException;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use App\Exceptions\Exception;
 
 class CreatureController extends Controller
 {
@@ -46,7 +46,8 @@ class CreatureController extends Controller
      */
     public function show(Creature $creature)
     {
-        return redirect()->route('game_main', ['creature', $creature]);
+        if ($creature == null) throw new Exception('null');
+        return view('seecreature', ['creature' => $creature]);
     }
 
     /**

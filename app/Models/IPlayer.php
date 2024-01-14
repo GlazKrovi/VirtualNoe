@@ -12,7 +12,7 @@ interface IPlayer
     public function money() : int;
     public function quantity(IItem $item) : int;
     public function items();
-    public function creature() : HasMany;
+    public function creatures() : HasMany;
 
     public function setLevel(int $level): void;
     public function setMoney(int $money): void;

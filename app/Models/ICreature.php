@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 interface ICreature 
 {
-    public function id() : string;
     public function name() : string;
     public function life() : int;
     public function level() : int;
