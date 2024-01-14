@@ -1,0 +1,28 @@
+.creature-texture {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.creature-info {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.creature-info h2 {
+    color: #333;
+}
+
+.creature-info p {
+    margin: 5px 0;
+}
+
+.creature-texture p {
+    color: #ff0000;
+    font-style: italic;
+    margin-top: 10px;
+}

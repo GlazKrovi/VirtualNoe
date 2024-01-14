@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<title>@yield('title')</title>
 		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+		<link rel="stylesheet" href="{{ asset('resources/css/creature.css') }}">
 	</head>
 	<body>
 		<nav>
