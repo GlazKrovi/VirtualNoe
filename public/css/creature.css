@@ -1,6 +1,6 @@
 .creature-texture {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border: 1px solid #ddd;
     border-radius: 8px;
 }
@@ -21,8 +21,5 @@
     margin: 5px 0;
 }
 
-.creature-texture p {
-    color: #ff0000;
-    font-style: italic;
-    margin-top: 10px;
-}
+
+
