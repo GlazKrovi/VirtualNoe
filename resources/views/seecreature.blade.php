@@ -1,6 +1,6 @@
 @extends('layouts.mainLayout')
 
-@yield('title', "Creature's house")
+@section('title', "Creature's house")
 
 @section('content')
     <div>
@@ -17,10 +17,7 @@
             </div>  
         @endisset
     
-        @includeIf('shared.creature', ['creature' => $creature])
-    
-        <a href="{{ route('inventory_show') }}">Inventory</a>
-    
+        @includeIf('shared.creature', ['creature' => $creature])    
     </div>
 @endsection
 
