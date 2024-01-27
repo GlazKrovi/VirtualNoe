@@ -8,15 +8,18 @@ use InvalidArgumentException;
 use Exception;
 use App\Models\Item;
 use App\Models\IPlayer;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class InventoryController extends Controller
 {
-    public function show()
+    public function show(string $message = "")
     {
         $player = session('user');
+        $userItems = $player->items();
+
         // open view
-        return view('inventory')->with('player', $player)->with('userItems', $player->items());
+        return view('inventory')->with('player', $player)->with('userItems', $userItems)->with('message', $message);
     }
 
     public function use(int $creatureId, int $itemId, string $type)
@@ -38,8 +41,14 @@ class InventoryController extends Controller
         else throw new Exception('Invalid item type');
 
         // back to inventory
-        $player = session('user');
-        return view('inventory')->with('player', $player)->with('userItems', $player->items())->with('message', 'You just used "' . $item->name() . '"!');
+        $this->show('You just used "' . $item->name() . '"!');
+    }
+
+    public function quantityOf(IPlayer $player, Item $item) : int
+    {
+        $intermediateRow = $item->users()->where('user_id', $player->id)->first();
+
+        return $intermediateRow ? $intermediateRow->pivot->quantity : 0;
     }
 
     public function add(IPlayer $player, Item $item, int $quantity)

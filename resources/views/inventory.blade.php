@@ -7,13 +7,12 @@
     <div>
         <h1> Inventory of "{{ $player->name() }}": </h1>
 
-        <p class="how-many-items"> You have currently {{ $userItems->count() }} items </p> 
-
-        @foreach ($userItems as $item)
+        @foreach ($player->items() as $item)
             <div class="item-info"> 
                 <p> Name: {{ $item->name() }} </p>
                 <p> Type: {{ $item->type() }} </p>
                 <p> Price: {{ $item->price() }} </p>
+                <p> Quantity: {{ app('App\Http\Controllers\InventoryController')->quantityOf($player, $item) }} </p>
 
                 <form action="{{ route('inventory_use', ['creatureId' => $player->creatures()->first(), 'itemId' => $item->id(), 'type' => $item->type()]) }}" method="POST">
                     @csrf
