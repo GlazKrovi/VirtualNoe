@@ -22,3 +22,9 @@ nav li a:hover {
     background-color: #f1f1f1; 
     color: white;
 }
+
+.message p {
+    font-style: italic;
+    font-weight: bold;
+    color:brown;
+}

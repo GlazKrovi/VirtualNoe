@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Creature;
-use App\Models\IBoost;
 use App\Models\ICreature;
-use App\Models\IFood;
-use Carbon\Exceptions\InvalidCastException;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Exceptions\Exception;
@@ -74,91 +71,22 @@ class CreatureController extends Controller
         $creature->delete();
     }
 
-    public function feed(Request $request)
+    public function feed(int $creatureId, int $calories)
     {
-        // securities 
-        if ($request->has('food')) {
-            $item = $request->input('food');
-        } else {
-            throw new Exception('Variable not found');
-        }
-        
-        if ($request->has('creature')) {
-            $creature = $request->input('creature');
-        } else {
-            throw new Exception('Variable not found');
-        }
-
-        if(!$creature instanceof ICreature && !$item instanceof IFood)
-        {
-            throw new InvalidCastException();
-        }
-
-        $creature->setHunger($creature->hunger + $item->calories());
+        $creature = Creature::find($creatureId);
+        $creature->setHunger($creature->hunger + $calories);
     }
 
 
-    public function boost(Request $request)
+    public function boost(int $creatureId, int $energy)
     {
-        // securities 
-        if ($request->has('boost')) {
-            $item = $request->input('boost');
-        } else {
-            throw new Exception('Variable not found');
-        }
-        
-        if ($request->has('creature')) {
-            $creature = $request->input('creature');
-        } else {
-            throw new Exception('Variable not found');
-        }
-
-        if(!$creature instanceof ICreature && !$item instanceof IBoost)
-        {
-            throw new InvalidCastException();
-        }
-        
-        $creature->setStamina($creature->stamina + $item->energy());
+        $creature = Creature::find($creatureId);
+        $creature->setStamina($creature->stamina + $energy);
     }
 
-    public function levelUp(Request $request)
+    public function levelUp(int $creatureId, int $exp)
     {
-        // securities 
-        if ($request->has('exp')) {
-            $exp = $request->input('exp');
-        } else {
-            throw new Exception('Variable not found');
-        }
-        
-        if ($request->has('creature')) {
-            $creature = $request->input('creature');
-        } else {
-            throw new Exception('Variable not found');
-        }
-
-        if(!$creature instanceof ICreature)
-        {
-            throw new InvalidCastException();
-        }
-
+        $creature = Creature::find($creatureId);
         $creature->setLevel($creature->level + $exp);
-    }
-
-
-    /* 
-    public function heal(Creature $creature, IDrug $drug)
-    {
-        // param = request
-        // drug : IDrug
-        // subfunction healCreature(Creature $creature, IDrug $drug)
-        $creature->hunger += $drug->healing();
-        if ($creature->hunger > $creature->MAX_HUNGER)
-        {
-            $creature->hunger =$creature->MAX_HUNGER;
-        }
-        $creature->save(); 
-    }
-    */
-
-   
+    }  
 }

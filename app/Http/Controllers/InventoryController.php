@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boost;
+use App\Models\Food;
 use InvalidArgumentException;
 use Exception;
 use App\Models\Item;
@@ -15,6 +17,29 @@ class InventoryController extends Controller
         $player = session('user');
         // open view
         return view('inventory')->with('player', $player)->with('userItems', $player->items());
+    }
+
+    public function use(int $creatureId, int $itemId, string $type)
+    {
+        $creatureController = new CreatureController();
+        
+        if (strtolower($type) == "food")
+        {
+            $item = Food::find($itemId);
+            $creatureController->feed($creatureId, $item->calories());
+        }
+
+        else if (strtolower($type) == "boost")
+        {
+            $item = Boost::find($itemId);
+            $creatureController->boost($creatureId, $item->energy());
+        }
+
+        else throw new Exception('Invalid item type');
+
+        // back to inventory
+        $player = session('user');
+        return view('inventory')->with('player', $player)->with('userItems', $player->items())->with('message', 'You just used "' . $item->name() . '"!');
     }
 
     public function add(IPlayer $player, Item $item, int $quantity)

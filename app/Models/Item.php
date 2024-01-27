@@ -9,6 +9,11 @@ abstract class Item extends Model implements IItem
 {   
     public $timestamps = false;
 
+    public function id() : int
+    {
+        return $this->attributes['id'];
+    }
+
     public function name() : string
     {
         return $this->attributes['name'];
