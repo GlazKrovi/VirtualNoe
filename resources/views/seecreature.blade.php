@@ -10,16 +10,16 @@
         @isset($creature)
             <div class="creature-info">
                 <h2> {{ $creature->name() }} </h2>
-                <p> Level: {{ $creature->level() }} </p>
-                <p> Life: {{ $creature->life() }} </p>
-                <p> Hunger: {{ $creature->hunger() }} </p>
-                <p> Stamina: {{ $creature->stamina() }} </p>
+                <div class="creature-block">
+                    <ul>
+                        <li> Level: {{ $creature->level() }} </li>
+                        <li> Life: {{ $creature->life() }} </li>
+                        <li> Hunger: {{ $creature->hunger() }} </li>
+                        <li> Stamina: {{ $creature->stamina() }} </li>
+                    </ul>
+                @includeIf('shared.creature', ['creature' => $creature]) 
+                </div>
             </div>  
         @endisset
-    
-        @includeIf('shared.creature', ['creature' => $creature])    
     </div>
 @endsection
-
-
-    

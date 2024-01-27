@@ -1,8 +1,6 @@
 .creature-texture {
     width: 150px;
     height: 150px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
 }
 
 .creature-info {
@@ -19,6 +17,17 @@
 
 .creature-info p {
     margin: 5px 0;
+}
+
+.creature-block{
+    display: flex; 
+    align-items: center;
+}
+
+.creature-block img {
+    display: flex; 
+    border: white;
+    margin-left: 20em;
 }
 
 
