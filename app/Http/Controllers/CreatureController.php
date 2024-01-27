@@ -93,19 +93,10 @@ class CreatureController extends Controller
         {
             throw new InvalidCastException();
         }
-        
-        $this->feedCreature($creature, $item);
+
+        $creature->setHunger($creature->hunger + $item->calories());
     }
 
-    private function feedCreature(Creature $creature, IFood $food)
-    {
-        $creature->hunger += $food->calories();
-        if ($creature->hunger > $creature->MAX_HUNGER)
-        {
-            $creature->hunger =$creature->MAX_HUNGER;
-        }
-        $creature->save();             
-    }
 
     public function boost(Request $request)
     {
@@ -127,17 +118,7 @@ class CreatureController extends Controller
             throw new InvalidCastException();
         }
         
-        $this->boostCreature($creature, $item);
-    }
-
-    private function boostCreature(Creature $creature, IBoost $boost)
-    {
-        $creature->stamina += $boost->energy();
-        if ($creature->stamina > $creature->MAX_STAMINA)
-        {
-            $creature->stamina =$creature->MAX_STAMINA;
-        }
-        $creature->save();  
+        $creature->setStamina($creature->stamina + $item->energy());
     }
 
     public function levelUp(Request $request)
@@ -160,17 +141,7 @@ class CreatureController extends Controller
             throw new InvalidCastException();
         }
 
-        $this->levelUpCreature($creature, $exp);
-    }
-
-    private function levelUpCreature(Creature $creature, int $exp)
-    {
-        $creature->level += $exp;
-        if ($creature->level > $creature->MAX_LEVEL)
-        {
-            $creature->level =$creature->MAX_LEVEL;
-        }
-        $creature->save();  
+        $creature->setLevel($creature->level + $exp);
     }
 
 

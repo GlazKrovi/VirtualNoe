@@ -54,6 +54,35 @@ class Creature extends Model implements ICreature
         return $this->attributes['stamina']; 
     }
 
+    // SETTER
+    public function setLife(int $life)
+    {
+        $this->life = $life;
+        if ($this->life > $this->MAX_LIFE) $this->life = $this->life;
+        $this->save();
+    }
+
+    public function setLevel(int $level)
+    {
+        $this->level = $level;
+        if ($this->level > $this->MAX_LEVEL) $this->level = $this->level;
+        $this->save();
+    }
+
+    public function setHunger(int $hunger)
+    {
+        $this->hunger = $hunger;
+        if ($this->hunger > $this->MAX_HUNGER) $this->hunger = $this->hunger;
+        $this->save();
+    }
+
+    public function setStamina(int $stamina)
+    {
+        $this->stamina = $stamina;
+        if ($this->stamina > $this->MAX_STAMINA) $this->stamina = $this->stamina;
+        $this->save();
+    }
+
     /**
      * @return string Texture path
      */

@@ -14,6 +14,11 @@ interface ICreature
     function stamina() : int;
     function species() : string;
 
+    function setLife(int $life);
+    function setLevel(int $level);
+    function setHunger(int $hunger);
+    function setStamina(int $stamina);
+
     function user() : BelongsTo;
 
     /**
