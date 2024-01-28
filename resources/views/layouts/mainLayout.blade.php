@@ -4,9 +4,11 @@
 		<meta charset="utf-8">
 		<title>@yield('title')</title>
 		<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/blocks.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/creature.css') }}">
 		<link rel="stylesheet" href="{{ asset('css/inventory.css') }}">
-		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 	</head>
 	<body>
 		<nav>

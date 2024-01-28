@@ -10,11 +10,8 @@
         @includeIf('shared.creature_resume', ['creature' => $creature]) 
 
         @foreach ($userItems as $item)
-            <div class="item-info"> 
-                <p> Name: {{ $item->name() }} </p>
-                <p> Type: {{ $item->type() }} </p>
-                <p> Price: {{ $item->price() }} </p>
-                <p> Quantity: {{ $item->pivot->quantity }} </p>
+            <div class="block" id="item-info"> 
+                @include('shared.item', ['item' => $item])
 
                 <form action="{{ route('inventory_use', ['creatureId' => $player->creatures()->first(), 'itemId' => $item->id(), 'type' => $item->type()]) }}" method="POST">
                     @csrf

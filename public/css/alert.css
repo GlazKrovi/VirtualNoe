@@ -1,0 +1,8 @@
+.message p {
+    color: #7C7287;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2rem;
+    text-shadow: black 1rem;
+    font-weight: bolder;
+    font-style: italic;
+}

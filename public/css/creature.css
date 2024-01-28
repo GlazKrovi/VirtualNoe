@@ -1,34 +1,8 @@
-.creature-texture {
+#creature-texture {
     width: 150px;
     height: 150px;
+    position: relative;
+    margin-left: 80%; 
+    margin-right: 0;
 }
-
-.creature-resume h2 {
-    font-size: 2rem;
-    color: blueviolet;
-}
-
-.creature-resume ul {
-    font-size: 1rem;
-    color: blue;
-}
-
-.creature-block{
-    display: flex; 
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 8px;
-    margin-top: 15px;
-    padding: 1rem;
-    background: fixed;
-    background-color: beige;
-}
-
-.creature-block img {
-    display: flex; 
-    border: white;
-    margin-left: 20em;
-}
-
-
 
