@@ -59,17 +59,6 @@ class User extends Model implements IPlayer
     }
 
     // OWNS    
-    public function quantity(IItem $item) : int   
-    {
-        $qtyRow = $this->items()->where('item_id', $item->id)->first();
-        return $qtyRow ? $qtyRow->pivot->quantity : 0;  // return 0 if unfound       
-    }
-   
-    public function itemsOfType(IItem $type) : array
-    {
-        return Item::where('type', $type)->get()->toArray();
-    }
-
     public function id() : int
     {
         return $this->attributes['id'];

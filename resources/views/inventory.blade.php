@@ -7,12 +7,12 @@
     <div>
         <h1> Inventory of "{{ $player->name() }}": </h1>
 
-        @foreach ($player->items() as $item)
+        @foreach ($userItems as $item)
             <div class="item-info"> 
                 <p> Name: {{ $item->name() }} </p>
                 <p> Type: {{ $item->type() }} </p>
                 <p> Price: {{ $item->price() }} </p>
-                <p> Quantity: {{ app('App\Http\Controllers\InventoryController')->quantityOf($player, $item) }} </p>
+                <p> Quantity: {{ $item->pivot->quantity }} </p>
 
                 <form action="{{ route('inventory_use', ['creatureId' => $player->creatures()->first(), 'itemId' => $item->id(), 'type' => $item->type()]) }}" method="POST">
                     @csrf
@@ -21,10 +21,10 @@
             </div>
         @endforeach
 
-        @isset($message)
+        @if ($message)
             <div class="message">
                 <p> {{ $message }} </p>
             </div>
-        @endisset
+        @endif
     </div>
 @endsection

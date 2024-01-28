@@ -10,7 +10,6 @@ interface IPlayer
     public function password() : string;
     public function level() : int;
     public function money() : int;
-    public function quantity(IItem $item) : int;
     public function items();
     public function creatures() : HasMany;
 
