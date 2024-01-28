@@ -14,11 +14,13 @@ class InventoryController extends Controller
 {
     $player = session('user');
     $userItems = $player->items();
+    $creature = $player->creatures()->first();
 
     return view('inventory', [
         'player' => $player,
         'userItems' => $userItems,
-        'message' => $message
+        'creature' => $creature,
+        'message' => $message,
     ]);
 }
 

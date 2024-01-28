@@ -15,7 +15,7 @@
 				<li><a href="{{ route('view_account') }}">Account</a></li>
 				
 				@if (session()->has('user') && session('user')->creatures()->first() != null)
-				<li><a href="{{ route( 'creature_show', ['creature' => session('user')->creatures()->first()] ) }}">Game</a></li>
+				<li><a href="{{ route( 'creature_show', ['creature' => session('user')->creatures()->first()] ) }}">Creature</a></li>
 				<li><a href="{{ route('inventory_show') }}">Inventory</a></li>
 				@endif
 			</ul>

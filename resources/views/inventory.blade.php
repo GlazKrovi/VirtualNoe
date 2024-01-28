@@ -7,6 +7,8 @@
     <div>
         <h1> Inventory of "{{ $player->name() }}": </h1>
 
+        @includeIf('shared.creature_resume', ['creature' => $creature]) 
+
         @foreach ($userItems as $item)
             <div class="item-info"> 
                 <p> Name: {{ $item->name() }} </p>
