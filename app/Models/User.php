@@ -100,12 +100,12 @@ class User extends Model implements IPlayer
 
     protected function foods() 
     {
-        return $this->belongsToMany(Food::class)->withPivot('quantity')->get();
+        return $this->belongsToMany(Food::class)->withPivot('quantity')->wherePivot('quantity', '>', 0)->get();
     }
 
     protected function boosts() 
     {
-        return $this->belongsToMany(Boost::class)->withPivot('quantity')->get();
+        return $this->belongsToMany(Boost::class)->withPivot('quantity')->wherePivot('quantity', '>', 0)->get();
     }
 
     public function setLevel(int $level): void

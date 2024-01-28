@@ -11,16 +11,17 @@ use App\Models\IPlayer;
 class InventoryController extends Controller
 {
     public function show(string $message = "")
-    {
-        $player = session('user');
-        $userItems = $player->items();
+{
+    $player = session('user');
+    $userItems = $player->items();
 
-        return view('inventory', [
-            'player' => $player,
-            'userItems' => $userItems,
-            'message' => $message
-        ]);
-    }
+    return view('inventory', [
+        'player' => $player,
+        'userItems' => $userItems,
+        'message' => $message
+    ]);
+}
+
 
     public function use(int $creatureId, int $itemId, string $type)
     {
