@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use \Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\InventoryController;
-use Exception;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -72,6 +70,11 @@ class User extends Model implements IPlayer
     public function password() : string
     {
         return $this->attributes['password'];
+    }
+
+    public function email() : string
+    {
+        return $this->attributes['email'];
     }
 
     public function level() : int

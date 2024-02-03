@@ -5,24 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Boost;
 use App\Models\Food;
 use Exception;
-use App\Models\Item;
+use App\Models\IItem;
 use App\Models\IPlayer;
 
 class InventoryController extends Controller
 {
     public function show(string $message = "")
-{
-    $player = session('user');
-    $userItems = $player->items();
-    $creature = $player->creatures()->first();
+    {
+        $player = session('user');
+        $userItems = $player->items();
+        $creature = $player->creatures()->first();
 
-    return view('inventory', [
-        'player' => $player,
-        'userItems' => $userItems,
-        'creature' => $creature,
-        'message' => $message,
-    ]);
-}
+        return view('inventory', [
+            'player' => $player,
+            'userItems' => $userItems,
+            'creature' => $creature,
+            'message' => $message,
+        ]);
+    }
 
 
     public function use(int $creatureId, int $itemId, string $type)
@@ -46,13 +46,13 @@ class InventoryController extends Controller
         return redirect()->route('inventory_show')->with('message', 'You just used "' . $item->name() . '"!');
     }
 
-    public function quantityOf(IPlayer $player, Item $item): int
+    public function quantityOf(IPlayer $player, IItem $item): int
     {
         $pivot = $item->users()->where('user_id', $player->id)->first();
         return $pivot ? $pivot->pivot->quantity : 0;
     }
 
-    public function add(IPlayer $player, Item $item, int $quantity)
+    public function add(IPlayer $player, IItem $item, int $quantity)
     {
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();
@@ -68,7 +68,7 @@ class InventoryController extends Controller
         }
     }
 
-    public function remove(IPlayer $player, Item $item, int $quantity)
+    public function remove(IPlayer $player, IItem $item, int $quantity)
     {
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();

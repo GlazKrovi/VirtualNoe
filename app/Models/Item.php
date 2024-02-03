@@ -29,8 +29,6 @@ abstract class Item extends Model implements IItem
         return $this->attributes['price'];
     }
 
-    public abstract function use() : void;
-
     public function users() : BelongsToMany
     {
         return $this->belongsToMany(User::class)->withPivot('quantity');   

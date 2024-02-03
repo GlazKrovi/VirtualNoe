@@ -4,10 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-interface IPlayer 
+interface IPlayer extends IUser
 {
-    public function name() : string;
-    public function password() : string;
     public function level() : int;
     public function money() : int;
     public function items();

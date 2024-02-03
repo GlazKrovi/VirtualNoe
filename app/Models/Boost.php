@@ -19,9 +19,4 @@ class Boost extends Item implements IBoost
     {
         return $this->attributes['energy'];
     }
-
-    public function use() : void // TODO
-    {
-        return;
-    }
 }
