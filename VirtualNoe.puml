@@ -105,32 +105,33 @@ package Models
         + hunger() : Integer
         + stamina() : Integer
         + species() : String
-        + levelUp(creatureId : Integer, experience : Integer)
-        + feed(creatureId : Integer, calories : Integer) /' + '/
-        + makeHungry(creatureId : Integer, calories : Integer) /' - '/
-        + boost(creatureId : Integer, energy : Integer) /' + '/
-        + tires(creatureId : Integer, energy : Integer) /' - '/
-        + heal(creatureId : Integer, life : Integer) /' + '/
-        + hurt(creatureId : Integer, life : Integer) /' - '/
+        + levelUp(experience : Integer)
+        + feed(calories : Integer) /' + '/
+        + makeHungry(calories : Integer) /' - '/
+        + boost(energy : Integer) /' + '/
+        + tires(energy : Integer) /' - '/
+        + heal(life : Integer) /' + '/
+        + hurt(life : Integer) /' - '/
         + user() : BelongsTo
         + texture() : String
     }
 
     /' Item Strategy '/
     abstract UseStrategy {
-        - value : Integer
-        # UseStrategy(value : Integer)
-        + executeOn(creatureId : Integer)
+        # CREATURE_ID : Integer
+        # VALUE : Integer
+        # UseStrategy(creatureId : Integer, value : Integer)
+        + {abstract} execute()
     }
 
-    class Feeding implements UseStrategy{
-        + Feeding(value : Integer)
-        + executeOn(creatureId : Integer)
+    class Feeding extends UseStrategy{
+        + Feeding(creatureId : Integer, value : Integer)
+        + execute()
     }
 
-    class Boosting implements UseStrategy{
-        + Boosting(value : Integer)
-        + executeOn(creatureId : Integer)
+    class Boosting extends UseStrategy{
+        + Boosting(creatureId : Integer, value : Integer)
+        + execute()
     }
     /' TODO '/
 }
@@ -170,15 +171,17 @@ package Controllers
     }
     PlayerController ..> IPlayer : controls
 
-    class CreatureController
-    {
+    class CreatureController {
         + index() : Collection
         + create()
-        + store(request : Request)
-        + show(creatureId : Integer)
-        + edit(creatureId : Integer)
-        + update(request : Request, creatureId : Integer)
-        + destroy(creatureId : Integer)
+        + store(Request $request)
+        + show(Creature $creature)
+        + edit(Creature $creature)
+        + update(Request $request, Creature $creature)
+        + destroy(Creature $creature)
+        + feed(int $creatureId, int $calories)
+        + boost(int $creatureId, int $energy)
+        + levelUp(int $creatureId, int $exp)
     }
     CreatureController ..> ICreature : controls
 }
