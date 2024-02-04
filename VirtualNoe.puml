@@ -100,25 +100,6 @@ package Models
         + user() : BelongsTo
         + texture() : String
     }
-
-    /' Item Strategy '/
-    abstract UseStrategy {
-        # CREATURE_ID : Integer
-        # VALUE : Integer
-        # UseStrategy(creatureId : Integer, value : Integer)
-        + {abstract} execute()
-    }
-
-    class Feeding extends UseStrategy{
-        + Feeding(creatureId : Integer, value : Integer)
-        + execute()
-    }
-
-    class Boosting extends UseStrategy{
-        + Boosting(creatureId : Integer, value : Integer)
-        + execute()
-    }
-    /' TODO '/
 }
 
 package Controllers
@@ -157,13 +138,8 @@ package Controllers
     PlayerController ..> IPlayer : controls
 
     class CreatureController {
-        + index() : Collection
         + create()
-        + store(Request $request)
         + show(Creature $creature)
-        + edit(Creature $creature)
-        + update(Request $request, Creature $creature)
-        + destroy(Creature $creature)
     }
     CreatureController ..> ICreature : controls
 }
