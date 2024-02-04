@@ -29,12 +29,10 @@ package Models
         + password() : String
         + level() : Integer
         + money() : Integer
-        + items()
-        +  creatures() : HasMany
+        + items() : HasMany
+        + creatures() : HasMany
         + earn(money : Integer)
         + lose(money : Integer)
-        # foods()
-        # boosts()
     }
 
     interface IItem
@@ -42,35 +40,20 @@ package Models
         + id() : Integer
         + name() : String
         + type() : String
+        + modificator() : Integer   
         + price() : Integer
         + users() : BelongsToMany /' get owners '/
-        + usage() : UseStrategy
     }
     IItem *--> UseStrategy : # UseStrategy\nusage
 
-    abstract class Item implements IItem
+    class Item implements IItem
     {
         + id() : Integer
         + name() : String
         + type() : String
+        + modificator() : Integer   
         + price() : Integer
         + users()
-    }
-
-    class Food extends Item
-    {
-        + calories() : Integer
-    }
-
-    class Boost extends Item
-    {
-        + energy() : Integer
-    }
-
-    /' TODO '/
-    class Drug extends Item
-    {
-        + healing() : Integer
     }
 
     interface ICreature
@@ -181,9 +164,6 @@ package Controllers
         + edit(Creature $creature)
         + update(Request $request, Creature $creature)
         + destroy(Creature $creature)
-        + feed(int $creatureId, int $calories)
-        + boost(int $creatureId, int $energy)
-        + levelUp(int $creatureId, int $exp)
     }
     CreatureController ..> ICreature : controls
 }

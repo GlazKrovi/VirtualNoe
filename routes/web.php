@@ -47,9 +47,7 @@ Route::prefix("user")->group(function () {
 
     /* His creature */
     Route::prefix("creature")->middleware('auth.myuser')->group(function () {
-        Route::view('/', 'creature')->name('view_creature');  
         Route::view('/create', 'formcreature')->name('view_creature_create');  
-        Route::post('/store', [CreatureController::class, 'store'])->name('creature_store');  
         Route::get('/show/{creature}', [CreatureController::class, 'show'])->name('creature_show');  
     }); 
     
