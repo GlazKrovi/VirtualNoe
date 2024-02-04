@@ -27,3 +27,12 @@ interface ICreature
      */
     function texture() : string;
 }
+
+/*
+ + levelUp(creatureId : Integer, experience : Integer)
+        + feed(creatureId : Integer, calories : Integer) /' + '/
+        + makeHungry(creatureId : Integer, calories : Integer) /' - '/
+        + boost(creatureId : Integer, energy : Integer) /' + '/
+        + tires(creatureId : Integer, energy : Integer) /' - '/
+        + heal(creatureId : Integer, life : Integer) /' + '/
+        + hurt(creatureId : Integer, life : Integer) /' - '/ */

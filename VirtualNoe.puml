@@ -12,12 +12,12 @@ package Models
 
     interface IPlayer extends IUser
     {
-        +  level() : Integer
-        +  money() : Integer
-        +  items()
-        +  creatures() : HasMany
-        +  setLevel(level : Integer)
-        +  setMoney(money : Integer)
+        + level() : Integer /' sum of his creatures' exp '/
+        + money() : Integer
+        + items()
+        + creatures() : HasMany
+        + earn(money : Integer)
+        + lose(money : Integer)
     }
     IPlayer" 1 " o--> " * "IItem : has
     IPlayer" 1 " o--> " * "ICreature : has
@@ -30,9 +30,9 @@ package Models
         + level() : Integer
         + money() : Integer
         + items()
-        + creatures() : HasMany
-        + setLevel(level : Integer)
-        + setMoney(money : Integer)
+        +  creatures() : HasMany
+        + earn(money : Integer)
+        + lose(money : Integer)
         # foods()
         # boosts()
     }
@@ -45,6 +45,7 @@ package Models
         + price() : Integer
         + users() : BelongsToMany /' get owners '/
     }
+    IItem *--> UseStrategy : - UseStrategy\nusage
 
     abstract class Item implements IItem
     {
@@ -55,31 +56,19 @@ package Models
         + users()
     }
 
-    interface IFood implements IItem
-    {
-        /' number of points added to hunger gauge '/
-        + calories() : Integer
-    }
-
-    class Food extends Item implements IFood
+    class Food extends Item
     {
         + calories() : Integer
     }
 
-    interface IBoost implements IItem
-    {
-        /' number of points added to stamina gauge '/
-        + energy() : Integer
-    }
-
-    class Boost extends Item implements IBoost
+    class Boost extends Item
     {
         + energy() : Integer
     }
 
-    interface IDrug implements IItem
+    /' TODO '/
+    class Drug extends Item
     {
-        /' number of points added to life gauge '/
         + healing() : Integer
     }
 
@@ -92,10 +81,13 @@ package Models
         + hunger() : Integer
         + stamina() : Integer
         + species() : String
-        + setLife(life : Integer)
-        + setLevel(level : Integer)
-        + setHunger(hunger : Integer)
-        + setStamina(stamina : Integer)
+        + levelUp(creatureId : Integer, experience : Integer)
+        + feed(creatureId : Integer, calories : Integer) /' + '/
+        + makeHungry(creatureId : Integer, calories : Integer) /' - '/
+        + boost(creatureId : Integer, energy : Integer) /' + '/
+        + tires(creatureId : Integer, energy : Integer) /' - '/
+        + heal(creatureId : Integer, life : Integer) /' + '/
+        + hurt(creatureId : Integer, life : Integer) /' - '/
         + user() : BelongsTo
         + texture() : String
     }
@@ -113,13 +105,34 @@ package Models
         + hunger() : Integer
         + stamina() : Integer
         + species() : String
-        + setLife(life : Integer)
-        + setLevel(level : Integer)
-        + setHunger(hunger : Integer)
-        + setStamina(stamina : Integer)
+        + levelUp(creatureId : Integer, experience : Integer)
+        + feed(creatureId : Integer, calories : Integer) /' + '/
+        + makeHungry(creatureId : Integer, calories : Integer) /' - '/
+        + boost(creatureId : Integer, energy : Integer) /' + '/
+        + tires(creatureId : Integer, energy : Integer) /' - '/
+        + heal(creatureId : Integer, life : Integer) /' + '/
+        + hurt(creatureId : Integer, life : Integer) /' - '/
         + user() : BelongsTo
         + texture() : String
     }
+
+    /' Item Strategy '/
+    abstract UseStrategy {
+        - value : Integer
+        # UseStrategy(value : Integer)
+        + executeOn(creatureId : Integer)
+    }
+
+    class Feeding implements UseStrategy{
+        + Feeding(value : Integer)
+        + executeOn(creatureId : Integer)
+    }
+
+    class Boosting implements UseStrategy{
+        + Boosting(value : Integer)
+        + executeOn(creatureId : Integer)
+    }
+    /' TODO '/
 }
 
 package Controllers
@@ -142,19 +155,18 @@ package Controllers
     InventoryController" 1 " ..> " * "IItem : <<use>>
 
     class UserController {
-        + connect(Request $request)
-        + create(Request $request)
-        + updatePassword(Request $request)
-        + delete(Request $request)
+        + connect(request : Request)
+        + create(request : Request)
+        + updatePassword(request : Request)
+        + delete(request : Request)
         + disconnect()
-        + forget(Request $request)
+        + forget(request : Request)
     }
     UserController ..> IUser : controls
 
     class PlayerController {
-        + levelUp(Request $request)
-        + earn(Request $request)
-        + lose(Request $request)
+        + earnMoney(request : Request)
+        + loseMoney(request : Request)
     }
     PlayerController ..> IPlayer : controls
 
@@ -162,16 +174,13 @@ package Controllers
     {
         + index() : Collection
         + create()
-        + store(Request $request)
-        + show(Creature $creature)
-        + edit(Creature $creature)
-        + update(Request $request, Creature $creature)
-        + destroy(Creature $creature)
-        + feed(Integer $creatureId, Integer $calories)
-        + boost(Integer $creatureId
+        + store(request : Request)
+        + show(creatureId : Integer)
+        + edit(creatureId : Integer)
+        + update(request : Request, creatureId : Integer)
+        + destroy(creatureId : Integer)
     }
     CreatureController ..> ICreature : controls
-
 }
 
 @enduml
