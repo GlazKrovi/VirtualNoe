@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\UseStrategy\UseStrategy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 abstract class Item extends Model implements IItem
 {   
     public $timestamps = false;
+    protected UseStrategy $usage;
 
     public function id() : int
     {
@@ -27,6 +29,11 @@ abstract class Item extends Model implements IItem
     public function price() : int
     {
         return $this->attributes['price'];
+    }
+
+    public function usage() : UseStrategy
+    {
+        return $this->usage;
     }
 
     public function users() : BelongsToMany

@@ -44,8 +44,9 @@ package Models
         + type() : String
         + price() : Integer
         + users() : BelongsToMany /' get owners '/
+        + usage() : UseStrategy
     }
-    IItem *--> UseStrategy : - UseStrategy\nusage
+    IItem *--> UseStrategy : # UseStrategy\nusage
 
     abstract class Item implements IItem
     {
