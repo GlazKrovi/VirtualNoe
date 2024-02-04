@@ -12,7 +12,7 @@ class InventoryController extends Controller
     public function show(string $message = "")
     {
         $player = session('user');
-        $userItems = $player->items();
+        $userItems = $player->items()->get();
         $creature = $player->creatures()->first();
 
         return view('inventory', [
@@ -23,7 +23,7 @@ class InventoryController extends Controller
         ]);
     }
 
-    public function useItem(IPlayer $owner, ICreature $creature, IItem $item)
+    public function use(IPlayer $owner, ICreature $creature, IItem $item)
     {
         $creatureController = new CreatureController();
 
