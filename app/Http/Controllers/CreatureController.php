@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Creature;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use App\Exceptions\Exception;
 
 class CreatureController extends Controller

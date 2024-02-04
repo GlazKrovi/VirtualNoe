@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Boost;
-use App\Models\Food;
 use Exception;
-use App\Models\IItem;
 use App\Models\IPlayer;
+use App\Models\ICreature;
+use App\Models\IItem;
 
 class InventoryController extends Controller
 {
@@ -24,25 +23,29 @@ class InventoryController extends Controller
         ]);
     }
 
-
-    public function use(int $creatureId, int $itemId, string $type)
+    public function useItem(IPlayer $owner, ICreature $creature, IItem $item)
     {
         $creatureController = new CreatureController();
 
-        if (strtolower($type) == "food") {
-            $item = Food::find($itemId);
-            $creatureController->feed($creatureId, $item->calories());
-        } elseif (strtolower($type) == "boost") {
-            $item = Boost::find($itemId);
-            $creatureController->boost($creatureId, $item->energy());
-        } else {
-            throw new Exception('Invalid item type');
+        $itemType = strtolower($item->type());
+        $modificator = $item->modificator();
+
+        switch ($itemType) {
+            case 'food':
+                $creatureController->feed($creature, $modificator);
+                break;
+            case 'boost':
+                $creatureController->boost($creature, $modificator);
+                break;
+            default:
+                // Handle other item types if needed
+                break;
         }
 
-        // Remove from inventory
-        $this->remove(session('user'), $item, 1);
+        // Remove used item from the player's inventory
+        $this->remove($owner, $item, 1);
 
-        // Redirect back to inventory
+        // Redirect back to the inventory page with a success message
         return redirect()->route('inventory_show')->with('message', 'You just used "' . $item->name() . '"!');
     }
 
