@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Food extends Item implements IFood
+class Food extends Item 
 {
     protected $fillable = [
         'name',

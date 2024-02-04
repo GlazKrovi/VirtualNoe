@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Boost extends Item implements IBoost
+class Boost extends Item 
 {
     use HasFactory;
 
