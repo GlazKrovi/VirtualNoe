@@ -82,23 +82,24 @@ package Models
         + hunger() : Integer
         + stamina() : Integer
         + species() : String
-        + levelUp(creatureId : Integer, experience : Integer)
-        + feed(creatureId : Integer, calories : Integer) /' + '/
-        + makeHungry(creatureId : Integer, calories : Integer) /' - '/
-        + boost(creatureId : Integer, energy : Integer) /' + '/
-        + tires(creatureId : Integer, energy : Integer) /' - '/
-        + heal(creatureId : Integer, life : Integer) /' + '/
-        + hurt(creatureId : Integer, life : Integer) /' - '/
+        + levelUp(experience : Integer)
+        + feed(calories : Integer) 
+        + makeHungry(calories : Integer) 
+        + boost(energy : Integer) 
+        + tires(energy : Integer) 
+        + heal(life : Integer) 
+        + hurt(life : Integer) 
         + user() : BelongsTo
         + texture() : String
     }
 
     class Creature implements ICreature
     {
-        + {readonly} MAX_LEVEL = 1000
-        + {readonly} MAX_LIFE = 100
-        + {readonly} MAX_STAMINA = 100
-        + {readonly} MAX_HUNGER = 100
+        # {readonly} MAX_LEVEL = 1000
+        # {readonly} MAX_LIFE = 100
+        # {readonly} MAX_STAMINA = 100
+        # {readonly} MAX_HUNGER = 100
+        # {readonly} MIN_INFO_VALUE = 0
         + id() : Integer
         + name() : String
         + life() : Integer
@@ -107,12 +108,12 @@ package Models
         + stamina() : Integer
         + species() : String
         + levelUp(experience : Integer)
-        + feed(calories : Integer) /' + '/
-        + makeHungry(calories : Integer) /' - '/
-        + boost(energy : Integer) /' + '/
-        + tires(energy : Integer) /' - '/
-        + heal(life : Integer) /' + '/
-        + hurt(life : Integer) /' - '/
+        + feed(calories : Integer) 
+        + makeHungry(calories : Integer) 
+        + boost(energy : Integer) 
+        + tires(energy : Integer) 
+        + heal(life : Integer) 
+        + hurt(life : Integer) 
         + user() : BelongsTo
         + texture() : String
     }

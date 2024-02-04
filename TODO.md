@@ -1,5 +1,3 @@
-1. create item strategies
-2. upd iitem/item
 3. upd creature model
 4. upd inventoryController (and creature control, rm useless funct and use CreatureID!)
 5. add drug class and logic
