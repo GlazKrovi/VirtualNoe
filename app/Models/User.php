@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use \Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\InventoryController;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Model implements IPlayer
@@ -33,82 +33,50 @@ class User extends Model implements IPlayer
     // COMMON
     public static function createWithItems(array $data)
     {
-        $user = User::create($data);
+        $user = User::updateOrCreate($data);
 
         // Give the user some basic items
         $inventoryController = new InventoryController($user);
-
-        $petFood = Food::where('name', 'Pet Food')->first();
-        if ($petFood) {
-            Log::debug('Pet Food retrieved successfully: ' . $petFood->name);
-            $inventoryController->add($user, $petFood, 3);
-        } else {
-            Log::debug('Pet Food not found!');
-        }
-
-        $vitamin = Boost::where('name', 'Vitamin')->first();
-        if ($vitamin) {
-            $inventoryController->add($user, $vitamin, 1);
-        } else {
-            Log::debug('Vitamin not found!');
-        }
-
+        $inventoryController->add($user, Item::where('name', 'Pet Food')->first(), 3);
+        $inventoryController->add($user, Item::where('name', 'Vitamin')->first(), 2);
+        
         return $user;
     }
 
     // OWNS    
-    public function id() : int
+    public function id(): int
     {
         return $this->attributes['id'];
     }
 
-    public function name() : string
+    public function name(): string
     {
         return $this->attributes['name'];
     }
 
-    public function password() : string
+    public function password(): string
     {
         return $this->attributes['password'];
     }
 
-    public function email() : string
+    public function email(): string
     {
         return $this->attributes['email'];
     }
 
-    public function level() : int
+    public function level(): int
     {
         return $this->attributes['level'];
     }
 
-    public function money() : int
+    public function money(): int
     {
         return $this->attributes['money'];
     }
 
-    public function items() 
+    public function items(): BelongsToMany
     {
-        $all = new Collection();
-        foreach ($this->boosts() as $boost)
-        {
-            $all->add($boost);
-        }
-        foreach ($this->foods() as $food)
-        {
-            $all->add($food);
-        }
-        return $all;
-    }
-
-    protected function foods() 
-    {
-        return $this->belongsToMany(Food::class)->withPivot('quantity')->wherePivot('quantity', '>', 0)->get();
-    }
-
-    protected function boosts() 
-    {
-        return $this->belongsToMany(Boost::class)->withPivot('quantity')->wherePivot('quantity', '>', 0)->get();
+        return $this->belongsToMany(Item::class)->withPivot('quantity')->wherePivot('quantity', '>', 0);
     }
 
     public function setLevel(int $level): void
@@ -123,7 +91,7 @@ class User extends Model implements IPlayer
         $this->save();
     }
 
-    public function creatures() : HasMany
+    public function creatures(): HasMany
     {
         return $this->hasMany(Creature::class);
     }

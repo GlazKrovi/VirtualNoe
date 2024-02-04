@@ -16,7 +16,7 @@ class CreatureSeeder extends Seeder
         $owner = User::where('name', 'a')->first();
 
         // create fake creature
-        Creature::create([
+        Creature::updateOrCreate([
             'name' => "Bozlov",
             'species' => "Dog",
             'user_id' => $owner->id(),

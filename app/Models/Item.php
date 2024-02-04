@@ -2,14 +2,20 @@
 
 namespace App\Models;
 
-use App\Models\UseStrategy\UseStrategy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-abstract class Item extends Model implements IItem
+class Item extends Model implements IItem
 {   
+    use HasFactory;
     public $timestamps = false;
-    protected UseStrategy $usage;
+    protected $fillable = [
+        'name',
+        'type',
+        'price',
+        'modificator',
+    ];
 
     public function __construct(array $attributes = [])
     {
@@ -36,9 +42,9 @@ abstract class Item extends Model implements IItem
         return $this->attributes['price'];
     }
 
-    public function usage() : UseStrategy
+    public function modificator(): int
     {
-        return $this->usage;
+        return $this->attributes['modificator'];
     }
 
     public function users() : BelongsToMany

@@ -14,7 +14,7 @@ package Models
     {
         + level() : Integer /' sum of his creatures' exp '/
         + money() : Integer
-        + items()
+        + items() : BelongsToMany
         + creatures() : HasMany
         + earn(money : Integer)
         + lose(money : Integer)
@@ -29,7 +29,7 @@ package Models
         + password() : String
         + level() : Integer
         + money() : Integer
-        + items() : HasMany
+        + items() : BelongsToMany
         + creatures() : HasMany
         + earn(money : Integer)
         + lose(money : Integer)
@@ -44,7 +44,6 @@ package Models
         + price() : Integer
         + users() : BelongsToMany /' get owners '/
     }
-    IItem *--> UseStrategy : # UseStrategy\nusage
 
     class Item implements IItem
     {
