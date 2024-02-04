@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\UseStrategy\Feeding;
+
 class Food extends Item 
 {
     protected $fillable = [
@@ -10,6 +12,8 @@ class Food extends Item
         'price',
         'calories',
     ];
+
+    protected UseStrategy $usage = new Feeding($this->calories());
 
     public function calories() : int
     {

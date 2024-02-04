@@ -7,17 +7,23 @@ use Illuminate\Testing\Exceptions\InvalidArgumentException;
 
 abstract class UseStrategy
 {
-    protected Creature $CREATURE;
     protected int $VALUE;
 
-    protected function __construct(int $creatureId, int $value)
+    protected function __construct(int $value)
     {
         $this->VALUE = $value;
-        $this->CREATURE = Creature::find($creatureId);
-
-        if ($this->CREATURE)
-            throw new InvalidArgumentException("Invalid creatureId");
     }
 
-    public abstract function execute(): void;
+    public abstract function executeOn(int $creatureId): void;
+
+    protected function retrieveTarget(int $creatureId) : Creature
+    {
+        $creature = Creature::find($creatureId);
+
+        if ($creature){
+            throw new InvalidArgumentException("Invalid creatureId");
+        }
+
+        return $creature;
+    }
 }

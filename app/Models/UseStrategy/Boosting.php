@@ -4,13 +4,13 @@ namespace App\Models\UseStrategy;
 
 class Boosting extends UseStrategy
 {
-    public function __construct(int $creatureId, int $energy)
+    public function __construct(int $energy)
     {
-        parent::__construct($creatureId, $energy);
+        parent::__construct($energy);
     }
 
-    public function execute() : void
+    public function executeOn(int $creatureId): void
     {
-        $this->CREATURE->boost($this->VALUE);
+        $this->retrieveTarget($creatureId)->boost($this->VALUE);
     }
 }

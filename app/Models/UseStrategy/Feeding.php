@@ -4,13 +4,13 @@ namespace App\Models\UseStrategy;
 
 class Feeding extends UseStrategy
 {
-    public function __construct(int $creatureId, int $calories)
+    public function __construct(int $calories)
     {
-        parent::__construct($creatureId, $calories);
+        parent::__construct($calories);
     }
 
-    public function execute() : void
+    public function executeOn(int $creatureId): void
     {
-        $this->CREATURE->feed($this->VALUE);
+        $this->retrieveTarget($creatureId)->feed($this->VALUE);
     }
 }
