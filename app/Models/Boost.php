@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\UseStrategy\Boosting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Boost extends Item 
@@ -14,6 +15,13 @@ class Boost extends Item
         'price',
         'energy',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->usage = new Boosting($this->energy());
+    }
 
     public function energy() : int
     {

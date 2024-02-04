@@ -11,6 +11,11 @@ abstract class Item extends Model implements IItem
     public $timestamps = false;
     protected UseStrategy $usage;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function id() : int
     {
         return $this->attributes['id'];

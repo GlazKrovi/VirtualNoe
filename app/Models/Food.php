@@ -13,7 +13,12 @@ class Food extends Item
         'calories',
     ];
 
-    protected UseStrategy $usage = new Feeding($this->calories());
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->usage = new Feeding($this->calories());
+    }
 
     public function calories() : int
     {
