@@ -1,4 +1,3 @@
-4. upd inventoryController (and creature control, rm useless funct)
 5. add drug class and logic
 6. upd player
 7. upd player control

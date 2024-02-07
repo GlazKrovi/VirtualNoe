@@ -38,6 +38,7 @@ class User extends Model implements IPlayer
         $inventoryController = new InventoryController($user);
         $inventoryController->add($user, Item::where('name', 'Pet Food')->first(), 3);
         $inventoryController->add($user, Item::where('name', 'Vitamin')->first(), 2);
+        $inventoryController->add($user, Item::where('name', 'Morphine')->first(), 1);
         
         return $user;
     }

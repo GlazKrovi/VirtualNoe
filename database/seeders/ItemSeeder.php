@@ -15,6 +15,7 @@ class ItemSeeder extends Seeder
     {
         $FOOD_TYPE = 'Food';
         $BOOST_TYPE = 'Boost';
+        $DRUG_TYPE = 'Drug';
 
         Item::updateOrCreate([
             'name' => 'Pet Food',
@@ -40,6 +41,19 @@ class ItemSeeder extends Seeder
             'type' => $BOOST_TYPE,
             'price' => 25,
             'modificator' => 15,
+        ]);
+
+        Item::updateOrCreate([
+            'name' => 'Morphine',
+            'type' => $DRUG_TYPE,
+            'price' => 10,
+            'modificator' => 8,
+        ]);
+        Item::updateOrCreate([
+            'name' => 'Pills',
+            'type' => $DRUG_TYPE,
+            'price' => 25,
+            'modificator' => 40,
         ]);
     }
 }
