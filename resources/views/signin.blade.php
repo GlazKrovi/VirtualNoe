@@ -15,6 +15,4 @@
 	<p>
 		If you don't have an account, <a href="{{ route('view_signup') }}">signup</a> first.
 	</p>
-
-	@include('shared.message')
 @endsection

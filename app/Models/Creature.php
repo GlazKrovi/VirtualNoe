@@ -20,12 +20,6 @@ class Creature extends Model implements ICreature
         'species',
     ];
 
-    protected const MAX_LEVEL = 1000;
-    protected const MAX_LIFE = 100;
-    protected const MAX_STAMINA = 100;
-    protected const MAX_HUNGER = 100;
-    protected const MIN_INFO_VALUE = 0;
-
     public function id(): int
     {
         return $this->id;
@@ -60,35 +54,37 @@ class Creature extends Model implements ICreature
     public function levelUp(int $experience): void
     {
         $this->level += $experience;
-        if ($this->level > $this->MAX_LEVEL) $this->level = $this->MAX_LEVEL;
+        if ($this->level > 10000) $this->level = 10000;
         $this->save();
     }
 
     public function feed(int $calories): void
     {
         $this->hunger += $calories;
-        if ($this->hunger > $this->MAX_HUNGER) $this->hunger = $this->MAX_HUNGER;
+        if ($this->hunger > 100) {
+            $this->hunger = 100;
+        }
         $this->save();
     }
 
     public function makeHungry(int $calories): void
     {
         $this->hunger -= $calories;
-        if ($this->hunger < $this->MIN_INFO_VALUE) $this->hunger = $this->MIN_INFO_VALUE;
+        if ($this->hunger < 0) $this->hunger = 0;
         $this->save();
     }
 
     public function boost(int $energy): void
     {
         $this->stamina += $energy;
-        if ($this->stamina > $this->MAX_ENERGY) $this->stamina = $this->MAX_ENERGY;
+        if ($this->stamina > 100) $this->stamina = 100;
         $this->save();
     }
 
     public function tires(int $energy): void
     {
         $this->stamina -= $energy;
-        if ($this->stamina < $this->MIN_INFO_VALUE) $this->stamina = $this->MIN_INFO_VALUE;
+        if ($this->stamina < 0) $this->stamina = 0;
         $this->save();
     }
 
@@ -102,9 +98,8 @@ class Creature extends Model implements ICreature
 
     public function hurt(int $life): void
     {
-        if ($life > 0) throw new InvalidArgumentException('Invalid value');
         $this->life -= $life;
-        if ($this->life < $this->MIN_INFO_VALUE) $this->life = $this->MIN_INFO_VALUE;
+        if ($this->life < 0) $this->life = 0;
         $this->save();
     }
 

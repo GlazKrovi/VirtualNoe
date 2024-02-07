@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Creature;
 use Exception;
-use App\Models\IPlayer;
-use App\Models\ICreature;
-use App\Models\IItem;
+use App\Models\Item;
+use App\Models\User;
 
 class InventoryController extends Controller
 {
@@ -23,19 +23,16 @@ class InventoryController extends Controller
         ]);
     }
 
-    public function use(IPlayer $owner, ICreature $creature, IItem $item)
+    public function use(User $owner, Creature $creature, Item $item)
     {
-        $creatureController = new CreatureController();
-
-        $itemType = strtolower($item->type());
         $modificator = $item->modificator();
 
-        switch ($itemType) {
+        switch (strtolower($item->type())) {
             case 'food':
-                $creatureController->feed($creature, $modificator);
+                $creature->feed($modificator);
                 break;
             case 'boost':
-                $creatureController->boost($creature, $modificator);
+                $creature->boost($modificator);
                 break;
             default:
                 // Handle other item types if needed
@@ -49,13 +46,13 @@ class InventoryController extends Controller
         return redirect()->route('inventory_show')->with('message', 'You just used "' . $item->name() . '"!');
     }
 
-    public function quantityOf(IPlayer $player, IItem $item): int
+    public function quantityOf(User $player, Item $item): int
     {
         $pivot = $item->users()->where('user_id', $player->id)->first();
         return $pivot ? $pivot->pivot->quantity : 0;
     }
 
-    public function add(IPlayer $player, IItem $item, int $quantity)
+    public function add(User $player, Item $item, int $quantity)
     {
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();
@@ -71,7 +68,7 @@ class InventoryController extends Controller
         }
     }
 
-    public function remove(IPlayer $player, IItem $item, int $quantity)
+    public function remove(User $player, Item $item, int $quantity)
     {
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();

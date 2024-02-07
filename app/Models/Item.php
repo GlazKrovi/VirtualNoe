@@ -44,7 +44,7 @@ class Item extends Model implements IItem
 
     public function modificator(): int
     {
-        return $this->attributes['modificator'];
+        return $this->modificator;
     }
 
     public function users() : BelongsToMany
