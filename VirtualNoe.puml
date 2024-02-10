@@ -141,6 +141,11 @@ package Controllers
         + show(Creature $creature)
     }
     CreatureController ..> ICreature : controls
+
+    class ClockController{
+        + refresh()
+    }
+    ClockController ..> Creature
 }
 
 @enduml
