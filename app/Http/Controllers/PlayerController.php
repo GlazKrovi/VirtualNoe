@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IPlayer;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class PlayerController extends Controller   
+class PlayerController extends Controller
 {
-    public function levelUp(Request $request) : void
+    public function levelUp(Request $request): void
     {
         $player = session('user');
         $amount = $request->input('experience');
         $actualQty = $player->level();
-        
+
         // add amount to player
-        $player->setLevel($amount + $actualQty);        
+        $player->setLevel($amount + $actualQty);
     }
 
-    public function earn(Request $request) : void
+    public function earn(Request $request): void
     {
         $player = session('user');
         $amount = $request->input('amount');
@@ -31,9 +29,12 @@ class PlayerController extends Controller
 
         // add amount to player
         $player->setMoney($actualQty + $amount);
+
+        // refresh
+        (new ClockController())->refreshHunger($player->creatures()->first());
     }
 
-    public function lose(Request $request) : void
+    public function lose(Request $request): void
     {
         $player = session('user');
         $amount = $request->input('amount');
@@ -45,5 +46,8 @@ class PlayerController extends Controller
 
         // remove amount to player
         $player->setMoney($actualQty - $amount);
+
+        // refresh
+        (new ClockController())->refreshHunger($player->creatures()->first());
     }
 }

@@ -27,6 +27,10 @@ class UserController extends Controller
         if (!$user instanceof User) throw new Exception("Try to store 'user' but is other than a User.");
         if (!$user instanceof IPlayer) throw new Exception("not a player.");
         session()->put('user', $user);
+
+        // refresh
+        (new ClockController())->refreshHunger($player->creatures()->first());
+
         return to_route('view_account')->with('message', "You are succesfully connected!");
     }
 
