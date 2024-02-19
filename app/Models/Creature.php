@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Testing\Exceptions\InvalidArgumentException;
 
 class Creature extends Model implements ICreature
 {
@@ -18,75 +19,94 @@ class Creature extends Model implements ICreature
         'stamina',
         'species',
     ];
-    
-    public const MAX_LEVEL = 1000;
-    public const MAX_LIFE = 100;
-    public const MAX_STAMINA = 100;
-    public const MAX_HUNGER = 100;
 
-    public function id() : int
+    public function id(): int
     {
         return $this->id;
     }
 
-    public function name() : string
+    public function name(): string
     {
-        return $this->attributes['name']; 
+        return $this->attributes['name'];
     }
 
-    public function life() : int
+    public function life(): int
     {
-        return $this->attributes['life']; 
+        return $this->attributes['life'];
     }
 
-    public function level() : int
+    public function level(): int
     {
-        return $this->attributes['level']; 
+        return $this->attributes['level'];
     }
 
-    public function hunger() : int
+    public function hunger(): int
     {
-        return $this->attributes['hunger']; 
+        return $this->attributes['hunger'];
     }
 
-    public function stamina() : int
+    public function stamina(): int
     {
-        return $this->attributes['stamina']; 
+        return $this->attributes['stamina'];
     }
 
     // SETTER
-    public function setLife(int $life)
+    public function levelUp(int $experience): void
     {
-        $this->life = $life;
-        if ($this->life > $this->MAX_LIFE) $this->life = $this->life;
+        $this->level += $experience;
+        if ($this->level > 10000) $this->level = 10000;
         $this->save();
     }
 
-    public function setLevel(int $level)
+    public function feed(int $calories): void
     {
-        $this->level = $level;
-        if ($this->level > $this->MAX_LEVEL) $this->level = $this->level;
+        $this->hunger += $calories;
+        if ($this->hunger > 100) {
+            $this->hunger = 100;
+        }
         $this->save();
     }
 
-    public function setHunger(int $hunger)
+    public function makeHungry(int $calories): void
     {
-        $this->hunger = $hunger;
-        if ($this->hunger > $this->MAX_HUNGER) $this->hunger = $this->hunger;
+        $this->hunger -= $calories;
+        if ($this->hunger < 0) $this->hunger = 0;
         $this->save();
     }
 
-    public function setStamina(int $stamina)
+    public function boost(int $energy): void
     {
-        $this->stamina = $stamina;
-        if ($this->stamina > $this->MAX_STAMINA) $this->stamina = $this->stamina;
+        $this->stamina += $energy;
+        if ($this->stamina > 100) $this->stamina = 100;
+        $this->save();
+    }
+
+    public function tires(int $energy): void
+    {
+        $this->stamina -= $energy;
+        if ($this->stamina < 0) $this->stamina = 0;
+        $this->save();
+    }
+
+    public function heal(int $life): void
+    {
+        if ($life < 0) throw new InvalidArgumentException('Invalid value');
+        $this->life += $life;
+        if ($this->life > $this->MAX_LIFE) $this->life = $this->MAX_LIFE;
+        $this->save();
+    }
+
+    public function hurt(int $life): void
+    {
+        $this->life -= $life;
+        if ($this->life < 0) $this->life = 0;
         $this->save();
     }
 
     /**
      * @return string Texture path
      */
-    public function texture() : string
+    public function texture(): string
     {
         return asset('textures/' . strtolower($this->species() . '.png'));
     }
@@ -96,9 +116,8 @@ class Creature extends Model implements ICreature
         return $this->belongsTo(User::class);
     }
 
-    public function species() : string
+    public function species(): string
     {
         return $this->attributes['species'];
     }
-
 }

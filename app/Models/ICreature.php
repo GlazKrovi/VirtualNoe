@@ -14,10 +14,15 @@ interface ICreature
     function stamina() : int;
     function species() : string;
 
-    function setLife(int $life);
-    function setLevel(int $level);
-    function setHunger(int $hunger);
-    function setStamina(int $stamina);
+    // SETTER
+    function levelUp(int $experience) : void;
+    function feed(int $calories) : void;
+    function makeHungry(int $calories) : void;
+    function boost(int $energy) : void;
+    function tires(int $energy) : void;
+    function heal(int $life) : void;
+    function hurt(int $life) : void;
+
 
     function user() : BelongsTo;
 
@@ -27,12 +32,3 @@ interface ICreature
      */
     function texture() : string;
 }
-
-/*
- + levelUp(creatureId : Integer, experience : Integer)
-        + feed(creatureId : Integer, calories : Integer) /' + '/
-        + makeHungry(creatureId : Integer, calories : Integer) /' - '/
-        + boost(creatureId : Integer, energy : Integer) /' + '/
-        + tires(creatureId : Integer, energy : Integer) /' - '/
-        + heal(creatureId : Integer, life : Integer) /' + '/
-        + hurt(creatureId : Integer, life : Integer) /' - '/ */

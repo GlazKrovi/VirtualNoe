@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boosts', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             // common to all items
             $table->id();
-            $table->string('name');
-            $table->string('type');
-            $table->integer('price');
-
-            // specific
-            $table->integer('energy')->default(10);
+            $table->string('name')->unique();
+            $table->string('type')->default('food');
+            $table->integer('price')->default(10);
+            $table->integer('modificator')->default(10);
         });
     }
 
@@ -28,6 +26,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('food_user');
+        Schema::dropIfExists('boost_user');
+        Schema::dropIfExists('foods');
         Schema::dropIfExists('boosts');
+        Schema::dropIfExists('items');
     }
 };

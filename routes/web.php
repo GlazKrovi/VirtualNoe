@@ -42,14 +42,12 @@ Route::prefix("user")->group(function () {
     /* His stuff */
     Route::prefix("inventory")->middleware('auth.myuser')->group(function () {
         Route::get('/show', [InventoryController::class, 'show'])->name('inventory_show');  
-        Route::post('/use/{creatureId}{itemId}/{type}', [InventoryController::class, 'use'])->name('inventory_use');
-    }); 
+        Route::post('/use/{owner}{creature}/{item}/', [InventoryController::class, 'use'])->name('inventory_use');
+    });  
 
     /* His creature */
     Route::prefix("creature")->middleware('auth.myuser')->group(function () {
-        Route::view('/', 'creature')->name('view_creature');  
         Route::view('/create', 'formcreature')->name('view_creature_create');  
-        Route::post('/store', [CreatureController::class, 'store'])->name('creature_store');  
         Route::get('/show/{creature}', [CreatureController::class, 'show'])->name('creature_show');  
     }); 
     

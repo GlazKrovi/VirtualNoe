@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Boost;
-use App\Models\Food;
+use App\Models\Creature;
 use Exception;
-use App\Models\IItem;
-use App\Models\IPlayer;
+use App\Models\Item;
+use App\Models\User;
 
 class InventoryController extends Controller
 {
     public function show(string $message = "")
     {
         $player = session('user');
-        $userItems = $player->items();
+        $userItems = $player->items()->get();
         $creature = $player->creatures()->first();
 
         return view('inventory', [
@@ -24,35 +23,36 @@ class InventoryController extends Controller
         ]);
     }
 
-
-    public function use(int $creatureId, int $itemId, string $type)
+    public function use(User $owner, Creature $creature, Item $item)
     {
-        $creatureController = new CreatureController();
+        $modificator = $item->modificator();
 
-        if (strtolower($type) == "food") {
-            $item = Food::find($itemId);
-            $creatureController->feed($creatureId, $item->calories());
-        } elseif (strtolower($type) == "boost") {
-            $item = Boost::find($itemId);
-            $creatureController->boost($creatureId, $item->energy());
-        } else {
-            throw new Exception('Invalid item type');
+        switch (strtolower($item->type())) {
+            case 'food':
+                $creature->feed($modificator);
+                break;
+            case 'boost':
+                $creature->boost($modificator);
+                break;
+            default:
+                // Handle other item types if needed
+                break;
         }
 
-        // Remove from inventory
-        $this->remove(session('user'), $item, 1);
+        // Remove used item from the player's inventory
+        $this->remove($owner, $item, 1);
 
-        // Redirect back to inventory
+        // Redirect back to the inventory page with a success message
         return redirect()->route('inventory_show')->with('message', 'You just used "' . $item->name() . '"!');
     }
 
-    public function quantityOf(IPlayer $player, IItem $item): int
+    public function quantityOf(User $player, Item $item): int
     {
         $pivot = $item->users()->where('user_id', $player->id)->first();
         return $pivot ? $pivot->pivot->quantity : 0;
     }
 
-    public function add(IPlayer $player, IItem $item, int $quantity)
+    public function add(User $player, Item $item, int $quantity)
     {
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();
@@ -68,7 +68,7 @@ class InventoryController extends Controller
         }
     }
 
-    public function remove(IPlayer $player, IItem $item, int $quantity)
+    public function remove(User $player, Item $item, int $quantity)
     {
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();

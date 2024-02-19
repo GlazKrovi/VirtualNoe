@@ -4,10 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-abstract class Item extends Model implements IItem
+class Item extends Model implements IItem
 {   
+    use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'type',
+        'price',
+        'modificator',
+    ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
 
     public function id() : int
     {
@@ -27,6 +40,11 @@ abstract class Item extends Model implements IItem
     public function price() : int
     {
         return $this->attributes['price'];
+    }
+
+    public function modificator(): int
+    {
+        return $this->modificator;
     }
 
     public function users() : BelongsToMany

@@ -13,7 +13,7 @@
             <div class="block" id="item-info"> 
                 @include('shared.item', ['item' => $item])
 
-                <form action="{{ route('inventory_use', ['creatureId' => $player->creatures()->first(), 'itemId' => $item->id(), 'type' => $item->type()]) }}" method="POST">
+                <form action="{{ route('inventory_use', ['owner' => $player, 'creature' => $player->creatures()->first(), 'item' => $item]) }}" method="POST">
                     @csrf
                     <button type="submit">Use</button>
                 </form>

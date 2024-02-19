@@ -11,11 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /* create user AFTER items 
-        (because some items will be gived to him when user is created!) */
         $this->call([
-            FoodSeeder::class,
-            BoostSeeder::class,
+            ItemSeeder::class, /* create user AFTER items (because some 
+                items will be gived to him when user is created!) */
             UserSeeder::class,
             CreatureSeeder::class,
         ]);
