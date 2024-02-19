@@ -99,11 +99,6 @@ package Models
         + user() : BelongsTo
         + texture() : String
     }
-
-    class Shop {
-        + shelves() : (IItem, int)[*]
-    }
-    Shop *--> " * "IItem : # shelves /' <IItem, int> Item-Price '/
 }
 
 package Controllers
@@ -121,6 +116,7 @@ package Controllers
         + quantityOf(player : IPlayer, item : Item): Integer
         + add(player : IPlayer, item : Item, quantity : Integer)
         + remove(player : IPlayer, item : Item, quantity : Integer)
+        + buy(shop : Shop, product : IItem, buyer : Player)
     }
     InventoryController" 1 " ..> " * "IPlayer : <<use>>
     InventoryController" 1 " ..> " * "IItem : <<use>>
@@ -151,14 +147,6 @@ package Controllers
         + refresh()
     }
     ClockController ..> Creature
-
-    class ShopController {
-        + buy(shop : Shop, product : IItem, buyer : Player)
-    }
-    ShopController ..> Shop : <<use>>
-    ShopController ..> IItem : <<use>>
-    ShopController ..> Player : <<use>>
-    ShopController ..> InventoryController : <<use>>
 }
 
 @enduml

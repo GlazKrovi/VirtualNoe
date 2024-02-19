@@ -90,4 +90,9 @@ class InventoryController extends Controller
             throw new Exception("Not enough quantity of specified item.");
         }
     }
+
+    public function buy(Item $product, User $buyer): void
+    {
+        
+    }
 }
