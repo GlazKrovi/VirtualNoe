@@ -91,8 +91,13 @@ class InventoryController extends Controller
         }
     }
 
-    public function buy(Item $product, User $buyer): void
+    public function buy(Item $product, User $buyer, int $amount): void
     {
-        
+        if ($buyer->money() >= $product->price()) {
+            $this->add($buyer, $product,  $amount);
+            $buyer->lose($product->price());
+        } else {
+            throw new Exception("No enough money !");
+        }
     }
 }
