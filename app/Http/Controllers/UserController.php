@@ -28,9 +28,6 @@ class UserController extends Controller
         if (!$user instanceof IPlayer) throw new Exception("not a player.");
         session()->put('user', $user);
 
-        // refresh
-        (new ClockController())->refreshHunger($player->creatures()->first());
-
         return to_route('view_account')->with('message', "You are succesfully connected!");
     }
 

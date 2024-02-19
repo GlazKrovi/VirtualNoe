@@ -13,5 +13,6 @@ interface IPlayer extends IUser
     public function creatures(): HasMany;
 
     public function setLevel(int $level): void;
-    public function setMoney(int $money): void;
+    public function earn(int $money): void;
+    public function lose(int $money): void;
 }

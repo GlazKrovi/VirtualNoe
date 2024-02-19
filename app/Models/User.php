@@ -39,7 +39,7 @@ class User extends Model implements IPlayer
         $inventoryController->add($user, Item::where('name', 'Pet Food')->first(), 3);
         $inventoryController->add($user, Item::where('name', 'Vitamin')->first(), 2);
         $inventoryController->add($user, Item::where('name', 'Morphine')->first(), 1);
-        
+
         return $user;
     }
 
@@ -82,6 +82,18 @@ class User extends Model implements IPlayer
     public function setLevel(int $level): void
     {
         $this->attributes['level'] = $level;
+        $this->save();
+    }
+
+    public function earn(int $money): void
+    {
+        $this->attributes['money'] += $money;
+        $this->save();
+    }
+
+    public function lose(int $money): void
+    {
+        $this->attributes['money'] -= $money;
         $this->save();
     }
 
