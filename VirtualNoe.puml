@@ -99,6 +99,11 @@ package Models
         + user() : BelongsTo
         + texture() : String
     }
+
+    class Shop {
+        + shelves() : (IItem, int)[*]
+    }
+    Shop *--> " * "IItem : # shelves /' <IItem, int> Item-Price '/
 }
 
 package Controllers
@@ -138,7 +143,7 @@ package Controllers
 
     class CreatureController {
         + create()
-        + show(Creature $creature)
+        + show(creature : Creature)
     }
     CreatureController ..> ICreature : controls
 
@@ -146,6 +151,14 @@ package Controllers
         + refresh()
     }
     ClockController ..> Creature
+
+    class ShopController {
+        + buy(shop : Shop, product : IItem, buyer : Player)
+    }
+    ShopController ..> Shop : <<use>>
+    ShopController ..> IItem : <<use>>
+    ShopController ..> Player : <<use>>
+    ShopController ..> InventoryController : <<use>>
 }
 
 @enduml
