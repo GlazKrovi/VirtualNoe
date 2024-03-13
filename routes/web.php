@@ -4,6 +4,7 @@ use App\Http\Controllers\CreatureController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,7 +60,13 @@ Route::prefix("user")->group(function () {
         Route::get('/deleteuser', [UserController::class, 'delete'])->name('user_deleteuser');
         Route::get('/signout', [UserController::class, 'disconnect'])->name('user_signout');
     });
+
+    /* Shop */
+     Route::prefix("shop")->middleware('auth.myuser')->group(function () {
+        Route::any('/show', [ShopController::class, 'show'])->name('show_show');  
+    });  
 });
+
 
 
 			
