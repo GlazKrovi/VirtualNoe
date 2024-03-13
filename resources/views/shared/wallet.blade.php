@@ -1,5 +1,5 @@
 @isset($money)
     <div class="wallet">
-        <p> money: {{ $money }} $ </p>
+        <p> Money: {{ $money }} $ </p>
     </div>
 @endisset

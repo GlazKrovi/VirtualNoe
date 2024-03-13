@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ShopController extends Controller
 {
@@ -27,7 +25,7 @@ class ShopController extends Controller
             'message' => $message,
         ]);
     }
-    
+
     public function buy(int $itemId)
     {
         $player = session('user');
@@ -39,14 +37,9 @@ class ShopController extends Controller
                 $this->inventoryController->add($player, $item, 1);
                 $player->lose($item->price());
             } else {
-                session()->put('message', 'You do not have enough money for this!');
+                return redirect()->route('shop_show')->with('message', 'You do not have enough money for this!');
             }
-        } else {
-            session()->put('message', 'Error during purchase: item or player is null');
-            Log::debug('item null during purchase? ' . ($item == null ? 'yes' : 'no'));
-            Log::debug('player null during purchase? ' . ($player == null ? 'yes' : 'no'));
         }
-
         // return to shop
         return redirect()->route('shop_show');
     }
