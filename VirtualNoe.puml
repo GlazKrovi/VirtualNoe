@@ -116,6 +116,7 @@ package Controllers
         + quantityOf(player : IPlayer, item : Item): Integer
         + add(player : IPlayer, item : Item, quantity : Integer)
         + remove(player : IPlayer, item : Item, quantity : Integer)
+        + buy(shop : Shop, product : IItem, buyer : Player)
     }
     InventoryController" 1 " ..> " * "IPlayer : <<use>>
     InventoryController" 1 " ..> " * "IItem : <<use>>
@@ -138,7 +139,7 @@ package Controllers
 
     class CreatureController {
         + create()
-        + show(Creature $creature)
+        + show(creature : Creature)
     }
     CreatureController ..> ICreature : controls
 
