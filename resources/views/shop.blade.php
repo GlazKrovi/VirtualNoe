@@ -20,11 +20,5 @@
                 </form>
             </div>
         @endforeach
-
-        @isset($message)
-            <div class="message">
-                <p> {{ $message }} </p>
-            </div>
-        @endisset 
     </div>
 @endsection

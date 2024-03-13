@@ -6,6 +6,7 @@ use App\Models\Creature;
 use Exception;
 use App\Models\Item;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class InventoryController extends Controller
 {
@@ -61,11 +62,7 @@ class InventoryController extends Controller
         $newQuantity = $pivot ? ($pivot->pivot->quantity + $quantity) : $quantity;
 
         // Update or create the pivot record
-        if ($pivot) {
-            $pivot->update(['quantity' => $newQuantity]);
-        } else {
-            $item->users()->attach($player->id, ['quantity' => $newQuantity]);
-        }
+        $item->users()->syncWithoutDetaching([$player->id => ['quantity' => $newQuantity]]);
     }
 
     public function remove(User $player, Item $item, int $quantity)
@@ -73,31 +70,20 @@ class InventoryController extends Controller
         // Retrieve the pivot model for this item and user
         $pivot = $item->users()->where('user_id', $player->id)->first();
 
-        // Calculate the new quantity
-        $newQuantity = $pivot ? ($pivot->pivot->quantity - $quantity) : 0;
+        // Check if the item exists in the player's inventory
+        if ($pivot) {
+            // Calculate the new quantity
+            $newQuantity = max(0, $pivot->pivot->quantity - $quantity);
 
-        // Check if the new quantity is valid
-        if ($newQuantity >= 0) {
-            // Update or create the pivot record
-            if ($pivot) {
-                // Update the pivot quantity directly
+            // Update the pivot record
+            if ($newQuantity > 0) {
                 $item->users()->updateExistingPivot($player->id, ['quantity' => $newQuantity]);
             } else {
-                // Attach the item with the new quantity
-                $item->users()->attach($player->id, ['quantity' => $newQuantity]);
+                // If the quantity becomes zero, remove the item from the player's inventory
+                $item->users()->detach($player->id);
             }
         } else {
-            throw new Exception("Not enough quantity of specified item.");
-        }
-    }
-
-    public function buy(Item $product, User $buyer, int $amount): void
-    {
-        if ($buyer->money() >= $product->price()) {
-            $this->add($buyer, $product,  $amount);
-            $buyer->lose($product->price());
-        } else {
-            throw new Exception("No enough money !");
+            throw new Exception("The specified item is not in the player's inventory.");
         }
     }
 }
