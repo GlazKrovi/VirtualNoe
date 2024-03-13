@@ -17,6 +17,7 @@ class User extends Model implements IPlayer
         'name',
         'email',
         'password',
+        'money',
     ];
 
     protected $hidden = [
@@ -32,10 +33,14 @@ class User extends Model implements IPlayer
     // COMMON
     public static function createWithItems(array $data)
     {
-        $user = User::updateOrCreate($data);
+        // Give money
+        $alldata = $data + ['money' => 100];
+
+        // Create
+        $user = User::updateOrCreate($alldata);
 
         // Give the user some basic items
-        $inventoryController = new InventoryController($user);
+        $inventoryController = new InventoryController();
         $inventoryController->add($user, Item::where('name', 'Pet Food')->first(), 3);
         $inventoryController->add($user, Item::where('name', 'Vitamin')->first(), 2);
         $inventoryController->add($user, Item::where('name', 'Morphine')->first(), 1);
