@@ -64,6 +64,7 @@ Route::prefix("user")->group(function () {
     /* Shop */
      Route::prefix("shop")->middleware('auth.myuser')->group(function () {
         Route::any('/show', [ShopController::class, 'show'])->name('shop_show');  
+        Route::any('/buy/{itemId}', [ShopController::class, 'buy'])->name('shop_buy');  
     });  
 });
 
