@@ -1,0 +1,152 @@
+@startuml VirtualNoe
+
+!theme reddress-darkgreen
+
+package Models
+{
+    interface IUser {
+        + name() : String
+        + password() : String
+        + email() : String
+    }
+
+    interface IPlayer extends IUser
+    {
+        + level() : Integer /' sum of his creatures' exp '/
+        + money() : Integer
+        + items() : BelongsToMany
+        + creatures() : HasMany
+        + earn(money : Integer)
+        + lose(money : Integer)
+    }
+    IPlayer" 1 " o--> " * "IItem : has
+    IPlayer" 1 " o--> " * "ICreature : has
+
+    class User implements IPlayer
+    {
+        + {static} createWithItems(data : Any[*])
+        + name() : String
+        + password() : String
+        + level() : Integer
+        + money() : Integer
+        + items() : BelongsToMany
+        + creatures() : HasMany
+        + earn(money : Integer)
+        + lose(money : Integer)
+    }
+
+    interface IItem
+    {
+        + id() : Integer
+        + name() : String
+        + type() : String
+        + modificator() : Integer   
+        + price() : Integer
+        + users() : BelongsToMany /' get owners '/
+    }
+
+    class Item implements IItem
+    {
+        + id() : Integer
+        + name() : String
+        + type() : String
+        + modificator() : Integer   
+        + price() : Integer
+        + users()
+    }
+
+    interface ICreature
+    {
+        + id() : Integer
+        + name() : String
+        + life() : Integer
+        + level() : Integer
+        + hunger() : Integer
+        + stamina() : Integer
+        + species() : String
+        + levelUp(experience : Integer)
+        + feed(calories : Integer) 
+        + makeHungry(calories : Integer) 
+        + boost(energy : Integer) 
+        + tires(energy : Integer) 
+        + heal(life : Integer) 
+        + hurt(life : Integer) 
+        + user() : BelongsTo
+        + texture() : String
+    }
+
+    class Creature implements ICreature
+    {
+        # {readonly} MAX_LEVEL = 1000
+        # {readonly} MAX_LIFE = 100
+        # {readonly} MAX_STAMINA = 100
+        # {readonly} MAX_HUNGER = 100
+        # {readonly} MIN_INFO_VALUE = 0
+        + id() : Integer
+        + name() : String
+        + life() : Integer
+        + level() : Integer
+        + hunger() : Integer
+        + stamina() : Integer
+        + species() : String
+        + levelUp(experience : Integer)
+        + feed(calories : Integer) 
+        + makeHungry(calories : Integer) 
+        + boost(energy : Integer) 
+        + tires(energy : Integer) 
+        + heal(life : Integer) 
+        + hurt(life : Integer) 
+        + user() : BelongsTo
+        + texture() : String
+    }
+}
+
+package Controllers
+{
+    class LogController
+    {
+        +  show()
+        +  showAll()
+    }
+
+    class InventoryController   /' use IPlayer '/
+    {
+        + show(message : String)
+        + use(creatureId : Integer, itemId : Integer, type : String)
+        + quantityOf(player : IPlayer, item : Item): Integer
+        + add(player : IPlayer, item : Item, quantity : Integer)
+        + remove(player : IPlayer, item : Item, quantity : Integer)
+        + buy(shop : Shop, product : IItem, buyer : Player)
+    }
+    InventoryController" 1 " ..> " * "IPlayer : <<use>>
+    InventoryController" 1 " ..> " * "IItem : <<use>>
+
+    class UserController {
+        + connect(request : Request)
+        + create(request : Request)
+        + updatePassword(request : Request)
+        + delete(request : Request)
+        + disconnect()
+        + forget(request : Request)
+    }
+    UserController ..> IUser : controls
+
+    class PlayerController {
+        + earnMoney(request : Request)
+        + loseMoney(request : Request)
+    }
+    PlayerController ..> IPlayer : controls
+
+    class CreatureController {
+        + create()
+        + show(creature : Creature)
+    }
+    CreatureController ..> ICreature : controls
+
+    class ClockController{
+        + refresh()
+    }
+    ClockController ..> Creature
+}
+
+@enduml
