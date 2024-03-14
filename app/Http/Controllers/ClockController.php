@@ -40,7 +40,7 @@ class ClockController extends Controller
     public function refreshFast(int $creatureId)
     {
         $creature = Creature::find($creatureId);
-        if ($creature->hunger() <= 0) {
+        if ($creature->hunger() > 0) {
             $creature->makeHungry(10);
         } else {
             $creature->hurt(10);

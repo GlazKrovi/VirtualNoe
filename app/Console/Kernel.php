@@ -16,9 +16,9 @@ class Kernel extends ConsoleKernel
             $creatures = \App\Models\Creature::all();
             foreach ($creatures as $creature) {
                 $controller = new \App\Http\Controllers\ClockController();
-                $controller->refresh($creature->id);
+                $controller->refreshFast($creature->id);
             }
-        })->everyFiveSeconds();
+        })->everyTwoMinutes();
     }
 
     /**
