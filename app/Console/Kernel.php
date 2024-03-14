@@ -13,7 +13,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-            // Exécutez la fonction refresh du ClockController pour toutes les créatures
             $creatures = \App\Models\Creature::all();
             foreach ($creatures as $creature) {
                 $controller = new \App\Http\Controllers\ClockController();
@@ -27,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
