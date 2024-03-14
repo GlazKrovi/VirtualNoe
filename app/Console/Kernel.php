@@ -12,7 +12,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+            // Exécutez la fonction refresh du ClockController pour toutes les créatures
+            $creatures = \App\Models\Creature::all();
+            foreach ($creatures as $creature) {
+                $controller = new \App\Http\Controllers\ClockController();
+                $controller->refresh($creature->id);
+            }
+        })->everyFiveSeconds();
     }
 
     /**

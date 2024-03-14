@@ -26,9 +26,6 @@ class PlayerController extends Controller
 
         // do it
         $player->earn($amount);
-
-        // refresh
-        (new ClockController())->refreshHunger($player->creatures()->first());
     }
 
     public function loseMoney(IPlayer $player, int $amount): void
@@ -39,8 +36,5 @@ class PlayerController extends Controller
 
         // do it
         $player->lose($amount);
-
-        // refresh
-        (new ClockController())->refreshHunger($player->creatures()->first());
     }
 }
