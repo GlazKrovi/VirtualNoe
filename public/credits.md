@@ -1,1 +1,0 @@
-Animal images assets : <https://thkaspar.itch.io/tth-animals> Tiny, Tiny Heroes - Animals
