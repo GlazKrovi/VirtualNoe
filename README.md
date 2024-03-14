@@ -6,7 +6,7 @@ Virtual animal game, but on Laravel.
 
 ## Quick start
 
-Download the entire project, go into the containing folder and run 'php artisan serve' to run the game locally (only option for the moment).
+Download the entire project, go into the containing folder and run 'php artisan serve & php artisan schedule:run' to run the game locally (only option for the moment).
 
 ## Project status
 
